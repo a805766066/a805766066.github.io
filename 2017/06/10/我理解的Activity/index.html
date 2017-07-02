@@ -98,7 +98,7 @@
 <meta property="og:image" content="http://andrman.com/img/点击.png">
 <meta property="og:image" content="http://andrman.com/img/再次回来.png">
 <meta property="og:image" content="http://andrman.com/img/退出.png">
-<meta property="og:updated_time" content="2017-07-02T15:29:24.000Z">
+<meta property="og:updated_time" content="2017-07-02T15:38:56.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="我理解的Activity">
 <meta name="twitter:description" content="1.Activity的四种状态 Running     一个新的Activity启动入栈后，它在屏幕最前端，处于栈的最顶端，此时它处于可见并可和用户交互的激活状态。 Paused        当Activity被另一个透明或者Dialog样式的Activity覆盖时的状态。此时它依然与窗口管理器保持连接，系统继续维护其内部状态，它仍然可见，但它已经失去了焦点，故不可与用户交互。">
@@ -426,21 +426,22 @@
 <li>一个Task中的Activity可以来自不同的App，同一个App的Activity也可能不在一个Task中。</li>
 </ul>
 <h3 id="Android启动模式"><a href="#Android启动模式" class="headerlink" title="Android启动模式"></a>Android启动模式</h3><h4 id="为什么需要启动模式"><a href="#为什么需要启动模式" class="headerlink" title="为什么需要启动模式"></a>为什么需要启动模式</h4><p>当我们多次启动同一个Activity时，系统会创建多个实例，并把它们按照先进后出的原则一一放入任务栈中，当我们按back键时，就会有一个activity从任务栈顶移除，重复下去，直到任务栈为空，系统就会回收这个任务栈。但是这样以来，系统多次启动同一个Activity时就会重复创建多个实例，这种做法显然不合理，为了能够优化这个问题，Android提供四种启动模式来修改系统这一默认行为。 </p>
-<h4 id="Activity的四种启动模式"><a href="#Activity的四种启动模式" class="headerlink" title="Activity的四种启动模式"></a>Activity的四种启动模式</h4><p>standard、singleTop、singleTask、singleInstance</p>
-<ul>
-<li><p>standard<br>默认模式,在这个模式下，都会默认创建一个新的实例。因此，在这种模式下，可以有多个相同的实例，也允许多个相同Activity叠加。应用场景：大部分Activity。</p>
-</li>
-<li><p>singleTop<br>默认模式,在这个模式下，都会默认创建一个新的实例。因此，在这种模式下，可以有多个相同的实例，也允许多个相同Activity叠加。应用场景：大部分Activity。</p>
-</li>
+<h4 id="Activity的四种启动模式"><a href="#Activity的四种启动模式" class="headerlink" title="Activity的四种启动模式"></a>Activity的四种启动模式</h4><ul>
+<li>standard</li>
 </ul>
+<p>标准模式，每次都新建一个实例对象。默认模式</p>
+<ul>
+<li>singleTop</li>
+</ul>
+<p>如果在任务栈顶发现了相同的实例则重用，否则新建并压入栈顶。</p>
 <ul>
 <li><p>singleTask</p>
-<p>默认模式,在这个模式下，都会默认创建一个新的实例。因此，在这种模式下，可以有多个相同的实例，也允许多个相同Activity叠加。应用场景：大部分Activity。</p>
+<p>如果在任务栈中发现了相同的实例，将其上面的任务终止并移除，重用该实例。否则新建实例并入栈</p>
+</li>
+<li><p>singleInstance</p>
 </li>
 </ul>
-<ul>
-<li>singleInstance<br>默认模式,在这个模式下，都会默认创建一个新的实例。因此，在这种模式下，可以有多个相同的实例，也允许多个相同Activity叠加。应用场景：大部分Activity。</li>
-</ul>
+<p>允许不同应用，进程线程等共用一个实例，无论从何应用调用该实例都重用</p>
 
       
     </div>
