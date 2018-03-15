@@ -87,17 +87,17 @@
 
 
 
-<meta name="description" content="##1.什么是Handler?Handler是Android给我们提供用来更新UI的一套机制，也是一套消息处理的机制，我们可以通过它发送消息，也可以通过它处理消息。">
+<meta name="description" content="1.什么是Handler?Handler是Android给我们提供用来更新UI的一套机制，也是一套消息处理的机制，我们可以通过它发送消息，也可以通过它处理消息。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android开发你应该懂的：Handler">
 <meta property="og:url" content="http://andrman.cn/2017/06/12/Android开发你应该懂的：Handler/index.html">
 <meta property="og:site_name" content="Andrman&#39;s Blog">
-<meta property="og:description" content="##1.什么是Handler?Handler是Android给我们提供用来更新UI的一套机制，也是一套消息处理的机制，我们可以通过它发送消息，也可以通过它处理消息。">
+<meta property="og:description" content="1.什么是Handler?Handler是Android给我们提供用来更新UI的一套机制，也是一套消息处理的机制，我们可以通过它发送消息，也可以通过它处理消息。">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1672313-d4ef7e2cdcab1fd8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2018-03-15T07:59:18.000Z">
+<meta property="og:updated_time" content="2018-03-15T08:03:16.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android开发你应该懂的：Handler">
-<meta name="twitter:description" content="##1.什么是Handler?Handler是Android给我们提供用来更新UI的一套机制，也是一套消息处理的机制，我们可以通过它发送消息，也可以通过它处理消息。">
+<meta name="twitter:description" content="1.什么是Handler?Handler是Android给我们提供用来更新UI的一套机制，也是一套消息处理的机制，我们可以通过它发送消息，也可以通过它处理消息。">
 <meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/1672313-d4ef7e2cdcab1fd8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 
 
@@ -396,16 +396,15 @@
       
 
       
-        <p>##1.什么是Handler?<br>Handler是Android给我们提供用来更新UI的一套机制，也是一套消息处理的机制，我们可以通过它发送消息，也可以通过它处理消息。</p>
+        <h2 id="1-什么是Handler"><a href="#1-什么是Handler" class="headerlink" title="1.什么是Handler?"></a>1.什么是Handler?</h2><p>Handler是Android给我们提供用来更新UI的一套机制，也是一套消息处理的机制，我们可以通过它发送消息，也可以通过它处理消息。</p>
 <a id="more"></a>
-<p>##2.Handler的工作原理是什么？<br>Android中的异步消息处理涉及以下几个概[图片上传中…(3325025_1 + Android开发你应该懂的.png-f98c11-1510582512500-0)]<br>念:</p>
+<h2 id="2-Handler的工作原理是什么？"><a href="#2-Handler的工作原理是什么？" class="headerlink" title="2.Handler的工作原理是什么？"></a>2.Handler的工作原理是什么？</h2><p>Android中的异步消息处理涉及以下几个概[图片上传中…(3325025_1 + Android开发你应该懂的.png-f98c11-1510582512500-0)]<br>念:</p>
 <p>Handler<br>Looper<br>Message<br>MessageQueue</p>
-<p>######1.Looper<br>Looper主要有prepare()和loop()两个方法<br>一个线程中只有一个Looper实例<br>在线程中必须先调用Looper.prepare()方法，才能创建Handler对象loop()方法，不断从MessageQueue中去取消息，交给消息的target属性的dispatchMessage去处理</p>
-<p>######2.Message<br>Message是在线程之间传递的消息，它可以在内部携带少量的信息，用于在不同线程之间交换数据</p>
-<p>######3. MessageQueue<br>MessageQueue是由Looper创建的一个消息队列，它主要是用于存放所有的Handler发送的消息。这部分消息会一直存在于消息队列中，等待被处理。每个线程中只有一个MessageQueue对象。它被创建后，Looper进入一个无限循环体不断从该MessageQueue中读取消息。</p>
-<p>######4. Handler<br>当应用程序启动时，Android首先会开启一个主线程 (也就是UI线程) ， 主线程管理界面中的UI控件， 进行事件分发， 比如说， 你要是点击一个 Button ，Android会分发事件到Button上，来响应你的操作。  如果此时需要一个耗时的操作，例如: 联网读取数据，或者读取本地较大的一个文件的时候，你不能把这些操作放在主线程中，如果你放在主线程中的话，界面会出现假死现象， 如果5秒钟还没有完成的话，会收到Android系统的一个错误提示  “强制关闭”。  这个时候我们需要把这些耗时的操作，放在一个子线程中，因为子线程涉及到UI更新，Android主线程是线程不安全的， 也就是说，更新UI只能在主线程中更新，子线程中操作是危险的。 这个时候，Handler就出现了。</p>
-<p>######5. 那么它们是怎么合作完成复杂的异步消息处理机制的呢</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/1672313-d4ef7e2cdcab1fd8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Handler.png"><br>        从图中我们可以清晰的看出Handler的工作原理，Handler是运行在主线程中(UI线程中)，  它与子线程可以通过Message对象来传递数据。Handler可以分发Message对象和Runnable对象到主线程中， 每个Handler实例，都会绑定到创建他的线程中(一般是位于主线程)，它有两个作用：</p>
+<h6 id="1-Looper"><a href="#1-Looper" class="headerlink" title="1.Looper"></a>1.Looper</h6><p>Looper主要有prepare()和loop()两个方法<br>一个线程中只有一个Looper实例<br>在线程中必须先调用Looper.prepare()方法，才能创建Handler对象loop()方法，不断从MessageQueue中去取消息，交给消息的target属性的dispatchMessage去处理</p>
+<h6 id="2-Message"><a href="#2-Message" class="headerlink" title="2.Message"></a>2.Message</h6><p>Message是在线程之间传递的消息，它可以在内部携带少量的信息，用于在不同线程之间交换数据</p>
+<h6 id="3-MessageQueue"><a href="#3-MessageQueue" class="headerlink" title="3. MessageQueue"></a>3. MessageQueue</h6><p>MessageQueue是由Looper创建的一个消息队列，它主要是用于存放所有的Handler发送的消息。这部分消息会一直存在于消息队列中，等待被处理。每个线程中只有一个MessageQueue对象。它被创建后，Looper进入一个无限循环体不断从该MessageQueue中读取消息。</p>
+<h6 id="4-Handler"><a href="#4-Handler" class="headerlink" title="4. Handler"></a>4. Handler</h6><p>当应用程序启动时，Android首先会开启一个主线程 (也就是UI线程) ， 主线程管理界面中的UI控件， 进行事件分发， 比如说， 你要是点击一个 Button ，Android会分发事件到Button上，来响应你的操作。  如果此时需要一个耗时的操作，例如: 联网读取数据，或者读取本地较大的一个文件的时候，你不能把这些操作放在主线程中，如果你放在主线程中的话，界面会出现假死现象， 如果5秒钟还没有完成的话，会收到Android系统的一个错误提示  “强制关闭”。  这个时候我们需要把这些耗时的操作，放在一个子线程中，因为子线程涉及到UI更新，Android主线程是线程不安全的， 也就是说，更新UI只能在主线程中更新，子线程中操作是危险的。 这个时候，Handler就出现了。</p>
+<h6 id="5-那么它们是怎么合作完成复杂的异步消息处理机制的呢"><a href="#5-那么它们是怎么合作完成复杂的异步消息处理机制的呢" class="headerlink" title="5. 那么它们是怎么合作完成复杂的异步消息处理机制的呢"></a>5. 那么它们是怎么合作完成复杂的异步消息处理机制的呢</h6><p><img src="http://upload-images.jianshu.io/upload_images/1672313-d4ef7e2cdcab1fd8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Handler.png"><br>        从图中我们可以清晰的看出Handler的工作原理，Handler是运行在主线程中(UI线程中)，  它与子线程可以通过Message对象来传递数据。Handler可以分发Message对象和Runnable对象到主线程中， 每个Handler实例，都会绑定到创建他的线程中(一般是位于主线程)，它有两个作用：</p>
 <blockquote>
 <p>(1)安排消息或Runnable 在某个主线程中某个地方执行；<br>(2)安排一个动作在不同的线程中执行。</p>
 </blockquote>
@@ -428,7 +427,7 @@
 <p>那么问题就来了</p>
 <p>为什么主线程中的Handler也没有调用Looper.prepare()方法，就没有崩溃呢<br>ActivityThread中的main()方法源码如下：<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">public static void main(String[] args) &#123;  </div><div class="line">    SamplingProfilerIntegration.start();  </div><div class="line">    CloseGuard.setEnabled(false);  </div><div class="line">    Environment.initForCurrentUser();  </div><div class="line">    EventLogger.setReporter(new EventLoggingReporter());  </div><div class="line">    Process.setArgV0(&quot;&lt;pre-initialized&gt;&quot;);  </div><div class="line">    Looper.prepareMainLooper();  </div><div class="line">    ActivityThread thread = new ActivityThread();  </div><div class="line">    thread.attach(false);  </div><div class="line">    if (sMainThreadHandler == null) &#123;  </div><div class="line">        sMainThreadHandler = thread.getHandler();  </div><div class="line">    &#125;  </div><div class="line">    AsyncTask.init();  </div><div class="line">    if (false) &#123;  </div><div class="line">        Looper.myLooper().setMessageLogging(new LogPrinter(Log.DEBUG, &quot;ActivityThread&quot;));  </div><div class="line">    &#125;  </div><div class="line">    Looper.loop();  </div><div class="line">    throw new RuntimeException(&quot;Main thread loop unexpectedly exited&quot;);  </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>源码中可以看到在程序启动的时候，系统已经自动调用了Looper.prepareMainLooper()，为主线程创建了Looper，然后thread.getHandler()，保存了主线程的Handler，最后Looper.loop();进入消息循环。这样就可以解释我们上面的疑问了。</p>
-<p>##3.Handler和AsycnTask有什么关系呢<br>GoogleDeveloper解释如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">AsyncTask is designed to be a helper class around Thread</div><div class="line"> and Handler and does not constitute a generic threading framework. AsyncTasks should ideally be used for short operations (a few seconds at the most.) If you need to keep threads running for long periods of time</div></pre></td></tr></table></figure></p>
+<h2 id="3-Handler和AsycnTask有什么关系呢"><a href="#3-Handler和AsycnTask有什么关系呢" class="headerlink" title="3.Handler和AsycnTask有什么关系呢"></a>3.Handler和AsycnTask有什么关系呢</h2><p>GoogleDeveloper解释如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">AsyncTask is designed to be a helper class around Thread</div><div class="line"> and Handler and does not constitute a generic threading framework. AsyncTasks should ideally be used for short operations (a few seconds at the most.) If you need to keep threads running for long periods of time</div></pre></td></tr></table></figure></p>
 <p>意思就是AsyncTask是围绕Thread和Handler设计的辅助类，理想情况下，AsyncTasks应用于短操作（最多几秒钟）<br>也就是AsyncTask会自动帮我们创建一个线程，执行一个耗时操作，并随时报告执行进度给UI线程，执行完成后将结果报告给UI线程</p>
 <p>AsyncTask有四个重要方法，当一个异步任务被执行时，要经历四步：</p>
 <blockquote>
@@ -531,8 +530,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.jpg"
@@ -614,6 +622,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-什么是Handler"><span class="nav-number">1.</span> <span class="nav-text">1.什么是Handler?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Handler的工作原理是什么？"><span class="nav-number">2.</span> <span class="nav-text">2.Handler的工作原理是什么？</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1-Looper"><span class="nav-number">2.0.0.0.1.</span> <span class="nav-text">1.Looper</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2-Message"><span class="nav-number">2.0.0.0.2.</span> <span class="nav-text">2.Message</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#3-MessageQueue"><span class="nav-number">2.0.0.0.3.</span> <span class="nav-text">3. MessageQueue</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#4-Handler"><span class="nav-number">2.0.0.0.4.</span> <span class="nav-text">4. Handler</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#5-那么它们是怎么合作完成复杂的异步消息处理机制的呢"><span class="nav-number">2.0.0.0.5.</span> <span class="nav-text">5. 那么它们是怎么合作完成复杂的异步消息处理机制的呢</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Handler和AsycnTask有什么关系呢"><span class="nav-number">3.</span> <span class="nav-text">3.Handler和AsycnTask有什么关系呢</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
