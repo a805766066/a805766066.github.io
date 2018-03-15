@@ -87,18 +87,23 @@
 
 
 
-<meta name="description" content="一.什么是URI和URL1.1什么是URIURI，全称为Uniform Resource Identifier，统一资源标识符，用来唯一的标识一个资源。Web上可用的每种资源如HTML文档、图像、视频片段、程序等都是一个来URI来定位的">
+<meta name="description" content="一.Activity的四种状态 Running     一个新的Activity启动入栈后，它在屏幕最前端，处于栈的最顶端，此时它处于可见并可和用户交互的激活状态。 Paused        当Activity被另一个透明或者Dialog样式的Activity覆盖时的状态。此时它依然与窗口管理器保持连接，系统继续维护其内部状态，它仍然可见，但它已经失去了焦点，故不可与用户交互。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Android开发：URI和URL的区别">
-<meta property="og:url" content="http://andrman.cn/2017/06/12/Android开发：URI和URL的区别/index.html">
+<meta property="og:title" content="我理解的Activity">
+<meta property="og:url" content="http://andrman.cn/2017/06/10/Android开发你应该懂的 ：Activity/index.html">
 <meta property="og:site_name" content="Andrman&#39;s Blog">
-<meta property="og:description" content="一.什么是URI和URL1.1什么是URIURI，全称为Uniform Resource Identifier，统一资源标识符，用来唯一的标识一个资源。Web上可用的每种资源如HTML文档、图像、视频片段、程序等都是一个来URI来定位的">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1672313-d57f9904d2c6af5f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2018-03-06T15:22:51.000Z">
+<meta property="og:description" content="一.Activity的四种状态 Running     一个新的Activity启动入栈后，它在屏幕最前端，处于栈的最顶端，此时它处于可见并可和用户交互的激活状态。 Paused        当Activity被另一个透明或者Dialog样式的Activity覆盖时的状态。此时它依然与窗口管理器保持连接，系统继续维护其内部状态，它仍然可见，但它已经失去了焦点，故不可与用户交互。">
+<meta property="og:image" content="http://andrman.cn/img/activity_lifecycle.png">
+<meta property="og:image" content="http://andrman.cn/img/启动.png">
+<meta property="og:image" content="http://andrman.cn/img/点击.png">
+<meta property="og:image" content="http://andrman.cn/img/再次回来.png">
+<meta property="og:image" content="http://andrman.cn/img/退出.png">
+<meta property="og:image" content="http://andrman.cn/img/转屏.png">
+<meta property="og:updated_time" content="2018-03-06T15:23:16.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Android开发：URI和URL的区别">
-<meta name="twitter:description" content="一.什么是URI和URL1.1什么是URIURI，全称为Uniform Resource Identifier，统一资源标识符，用来唯一的标识一个资源。Web上可用的每种资源如HTML文档、图像、视频片段、程序等都是一个来URI来定位的">
-<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/1672313-d57f9904d2c6af5f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta name="twitter:title" content="我理解的Activity">
+<meta name="twitter:description" content="一.Activity的四种状态 Running     一个新的Activity启动入栈后，它在屏幕最前端，处于栈的最顶端，此时它处于可见并可和用户交互的激活状态。 Paused        当Activity被另一个透明或者Dialog样式的Activity覆盖时的状态。此时它依然与窗口管理器保持连接，系统继续维护其内部状态，它仍然可见，但它已经失去了焦点，故不可与用户交互。">
+<meta name="twitter:image" content="http://andrman.cn/img/activity_lifecycle.png">
 
 
 
@@ -126,13 +131,13 @@
 
 
 
-  <link rel="canonical" href="http://andrman.cn/2017/06/12/Android开发：URI和URL的区别/"/>
+  <link rel="canonical" href="http://andrman.cn/2017/06/10/Android开发你应该懂的 ：Activity/"/>
 
 
 
 
 
-  <title> Android开发：URI和URL的区别 | Andrman's Blog </title>
+  <title> 我理解的Activity | Andrman's Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -281,7 +286,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://andrman.cn/2017/06/12/Android开发：URI和URL的区别/">
+    <link itemprop="mainEntityOfPage" href="http://andrman.cn/2017/06/10/Android开发你应该懂的 ：Activity/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Andrman">
@@ -302,7 +307,7 @@
             
             
               
-                Android开发：URI和URL的区别
+                我理解的Activity
               
             
           </h1>
@@ -317,8 +322,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-12T09:00:13+08:00">
-                2017-06-12
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-10T08:44:05+08:00">
+                2017-06-10
               </time>
             
 
@@ -358,7 +363,7 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a class="cloud-tie-join-count" href="/2017/06/12/Android开发：URI和URL的区别/#comments" itemprop="discussionUrl">
+                <a class="cloud-tie-join-count" href="/2017/06/10/Android开发你应该懂的 ：Activity/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count join-count" itemprop="commentCount"></span>
                 </a>
               </span>
@@ -367,7 +372,7 @@
 
           
           
-             <span id="/2017/06/12/Android开发：URI和URL的区别/" class="leancloud_visitors" data-flag-title="Android开发：URI和URL的区别">
+             <span id="/2017/06/10/Android开发你应该懂的 ：Activity/" class="leancloud_visitors" data-flag-title="我理解的Activity">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -396,15 +401,52 @@
       
 
       
-        <h2 id="一-什么是URI和URL"><a href="#一-什么是URI和URL" class="headerlink" title="一.什么是URI和URL"></a>一.什么是URI和URL</h2><h4 id="1-1什么是URI"><a href="#1-1什么是URI" class="headerlink" title="1.1什么是URI"></a>1.1什么是URI</h4><p>URI，全称为Uniform Resource Identifier，统一资源标识符，用来唯一的标识一个资源。Web上可用的每种资源如HTML文档、图像、视频片段、程序等都是一个来URI来定位的</p>
+        <h3 id="一-Activity的四种状态"><a href="#一-Activity的四种状态" class="headerlink" title="一.Activity的四种状态"></a>一.Activity的四种状态</h3><ul>
+<li>Running     一个新的Activity启动入栈后，它在屏幕最前端，处于栈的最顶端，此时它处于可见并可和用户交互的激活状态。</li>
+<li>Paused        当Activity被另一个透明或者Dialog样式的Activity覆盖时的状态。此时它依然与窗口管理器保持连接，系统继续维护其内部状态，它仍然可见，但它已经失去了焦点，故不可与用户交互。</li>
+</ul>
 <a id="more"></a>
-<p>URI一般由三部组成<br>①访问资源的命名机制<br>②存放资源的主机名<br>③资源自身的名称，由路径表示，着重强调于资源。<br>例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">urn:issn:1535-3613</div></pre></td></tr></table></figure></p>
-<h4 id="1-2什么是URL"><a href="#1-2什么是URL" class="headerlink" title="1.2什么是URL"></a>1.2什么是URL</h4><p>URL，全称Uniform Resource Locator，是统一资源定位符，是Internet上用来描述资源的字符串，主要用在各种www客户端和服务器程序是，特别是著名的Mosaic。采用URL可以用一种统一的格式来描述各种信息资源，包括文件、服务器的地址和目录等。</p>
-<p>URL一般由三部组成<br>①协议(或称为服务方式)<br>②存有该资源的主机IP地址(有时也包括端口号)<br>③主机资源的具体地址。如目录和文件名等。<br>例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://www.jianshu.com/u/606fd5f5448c</div></pre></td></tr></table></figure></p>
-<h4 id="1-3什么是URN"><a href="#1-3什么是URN" class="headerlink" title="1.3什么是URN"></a>1.3什么是URN</h4><p>URN，全称Universal Resource Name，是统一资源名称。它是通过名字来标识资源。<br>例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mailto:java-net@java.sun.com</div></pre></td></tr></table></figure></p>
-<h2 id="二-URL和URI有什么联系"><a href="#二-URL和URI有什么联系" class="headerlink" title="二.URL和URI有什么联系"></a>二.URL和URI有什么联系</h2><p>URI属于URL更高层次的抽象，一种字符串文本标准。就是说，URI属于父类，而URL属于URI的子类。URL是URI的一个子集。URI还有一个子类URN-统一资源名称。</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/1672313-d57f9904d2c6af5f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="URI，URL，URN关系图"></p>
-<h2 id="三-URL和URI有什么区别"><a href="#三-URL和URI有什么区别" class="headerlink" title="三.URL和URI有什么区别"></a>三.URL和URI有什么区别</h2><p>其实从上面的对比就能看出来他们的区别。<br>URI包含URL和URN。<br>有人说，<br>URI = 作文<br>URL = 议论文、记叙文、诗歌……<br>也有人说，<br>URI ：树<br>URL：杨树<br>知乎上也有人简单粗暴的说，<br>原来uri包括url和urn，后来urn没流行起来，导致几乎目前所有的uri都是url</p>
+<ul>
+<li>Stopped    当Activity不可见时，Activity处于Stopped状态。当Activity处于此状态时，一定要保存当前数据和当前的UI状态，否则一旦Activity退出或关闭时，当前的数据和UI状态就丢失了。</li>
+<li>Killed        Activity被杀掉以后或者被启动以前，处于Killed状态。这是Activity已从Activity堆栈中移除，需要重新启动才可以显示和使用。</li>
+</ul>
+<p>4种状态中，Running状态和Paused状态是可见的，Stopped状态和Killed状态时不可见的。</p>
+<h3 id="二-Activity的生命周期"><a href="#二-Activity的生命周期" class="headerlink" title="二.Activity的生命周期"></a>二.Activity的生命周期</h3><h4 id="图解Activity生命周期"><a href="#图解Activity生命周期" class="headerlink" title="图解Activity生命周期"></a>图解Activity生命周期</h4><p><img src="/img/activity_lifecycle.png" alt="Activity生命周期"></p>
+<h4 id="Activity生命周期分析"><a href="#Activity生命周期分析" class="headerlink" title="Activity生命周期分析"></a>Activity生命周期分析</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div></pre></td><td class="code"><pre><div class="line">public class LifeCycleActivity extends AppCompatActivity &#123;</div><div class="line"></div><div class="line">    static final String TAG = &quot;LifeCycleActivity&quot;;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    protected void onCreate(Bundle savedInstanceState) &#123;</div><div class="line">        super.onCreate(savedInstanceState);</div><div class="line">        setContentView(R.layout.activity_life_cycle);</div><div class="line">        Log.d(TAG, &quot;onCreate&quot;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line"> 	 /**</div><div class="line">     * 这个函数提供了为我们在某些情况下保存Activity信息的机会，但不是什么时候都会被调用,横竖屏切换时，Activity销毁前系统会调用,通过保存Bundle参数来保存当前的Activity的数据</div><div class="line">     * @param outState</div><div class="line">     */</div><div class="line">    @Override</div><div class="line">    protected void onSaveInstanceState(Bundle outState) &#123;</div><div class="line">        super.onSaveInstanceState(outState);</div><div class="line">        Log.d(TAG, &quot;onSaveInstanceState&quot;);</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    /**</div><div class="line">     * 这个方法在一个activity被杀死前调用，当该activity在将来某个时刻回来时可以恢复其先前状态,当Activity被重新创建之后会调用.并把Activity销毁时 onSaveInstanceState方法所保留的数据作为Bundle参数同时传递给onRestoreInstanceState和onCreate方法</div><div class="line">     * @param savedInstanceState</div><div class="line">     */</div><div class="line">    @Override</div><div class="line">    protected void onRestoreInstanceState(Bundle savedInstanceState) &#123;</div><div class="line">        super.onRestoreInstanceState(savedInstanceState);</div><div class="line">        Log.d(TAG, &quot;onRestoreInstanceState&quot;);</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public void onStart() &#123;</div><div class="line">        super.onStart();</div><div class="line">        Log.d(TAG, &quot;onStart&quot;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public void onRestart() &#123;</div><div class="line">        super.onRestart();</div><div class="line">        Log.d(TAG, &quot;onRestart&quot;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void onResume() &#123;</div><div class="line">        super.onResume();</div><div class="line">        Log.d(TAG, &quot;onResume&quot;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">    public void onPause() &#123;</div><div class="line">        super.onPause();</div><div class="line">        Log.d(TAG, &quot;onPause&quot;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public void onStop() &#123;</div><div class="line">        super.onStop();</div><div class="line">        Log.d(TAG, &quot;onStop&quot;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public void onDestroy() &#123;</div><div class="line">        super.onDestroy();</div><div class="line">        Log.d(TAG, &quot;onDestroy&quot;);</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<h4 id="1-Activity启动"><a href="#1-Activity启动" class="headerlink" title="1.Activity启动"></a>1.Activity启动</h4><p>onCreate    -&gt;        onStart        -&gt;        onResume</p>
+<p><img src="/img/启动.png" alt="启动"></p>
+<h4 id="2-点击Home键回到主界面（Activity不可见"><a href="#2-点击Home键回到主界面（Activity不可见" class="headerlink" title="2.点击Home键回到主界面（Activity不可见)"></a>2.点击Home键回到主界面（Activity不可见)</h4><p>onPause        -&gt; onStop</p>
+<p><img src="/img/点击.png" alt="点击Home键回到主界面"></p>
+<h4 id="3-再次回到Activity时"><a href="#3-再次回到Activity时" class="headerlink" title="3.再次回到Activity时"></a>3.再次回到Activity时</h4><p>onReStart    -&gt;    onStart    -&gt;    onResume</p>
+<p><img src="/img/再次回来.png" alt="再次回到Activity时"></p>
+<h4 id="4-退出Activity时"><a href="#4-退出Activity时" class="headerlink" title="4.退出Activity时"></a>4.退出Activity时</h4><p>onPause        -&gt;        onStop        -&gt;        onDestory</p>
+<p><img src="/img/退出.png" alt="退出Activity时"></p>
+<h4 id="5-横竖屏切换"><a href="#5-横竖屏切换" class="headerlink" title="5.横竖屏切换"></a>5.横竖屏切换</h4><p>onPause        -&gt;        onSaveInstanceState        -&gt;        onStop        -&gt;        onDestroy        -&gt;        onCreate        -&gt;        onStart        -&gt;        onRestoreInstanceState        -&gt;        onResume</p>
+<p><img src="/img/转屏.png" alt="退出Activity时"></p>
+<h3 id="Android任务栈"><a href="#Android任务栈" class="headerlink" title="Android任务栈"></a>Android任务栈</h3><ul>
+<li>一个应用程序一般都是由多个Activity组成的，任务栈就是用来记录打开的Activity。</li>
+<li>任务栈（task stack）也可以叫返回栈(back stack)，具有后进先出的特性，栈中Activity的顺序就按照它们被打开的顺序依次存放的。</li>
+<li>一个应用程序一被开启系统就给他分配一个任务栈，当所有的Activity都退出的时候，任务栈就清空了</li>
+<li>一个App中可能不止一个任务栈，某些特殊情况下，单独一个Actvity可以独享一个任务栈</li>
+<li>一个Task中的Activity可以来自不同的App，同一个App的Activity也可能不在一个Task中。</li>
+</ul>
+<h3 id="Android启动模式"><a href="#Android启动模式" class="headerlink" title="Android启动模式"></a>Android启动模式</h3><h4 id="为什么需要启动模式"><a href="#为什么需要启动模式" class="headerlink" title="为什么需要启动模式"></a>为什么需要启动模式</h4><p>当我们多次启动同一个Activity时，系统会创建多个实例，并把它们按照先进后出的原则一一放入任务栈中，当我们按back键时，就会有一个activity从任务栈顶移除，重复下去，直到任务栈为空，系统就会回收这个任务栈。但是这样以来，系统多次启动同一个Activity时就会重复创建多个实例，这种做法显然不合理，为了能够优化这个问题，Android提供四种启动模式来修改系统这一默认行为。 </p>
+<h4 id="Activity的四种启动模式"><a href="#Activity的四种启动模式" class="headerlink" title="Activity的四种启动模式"></a>Activity的四种启动模式</h4><ul>
+<li>standard</li>
+</ul>
+<p>标准模式，每次都新建一个实例对象。默认模式</p>
+<ul>
+<li>singleTop</li>
+</ul>
+<p>如果在任务栈顶发现了相同的实例则重用，否则新建并压入栈顶。</p>
+<ul>
+<li><p>singleTask</p>
+<p>如果在任务栈中发现了相同的实例，将其上面的任务终止并移除，重用该实例。否则新建实例并入栈</p>
+</li>
+<li><p>singleInstance</p>
+</li>
+</ul>
+<p>允许不同应用，进程线程等共用一个实例，无论从何应用调用该实例都重用</p>
 
       
     </div>
@@ -441,8 +483,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/06/12/Android开发你应该懂的：Handler/" rel="next" title="Android开发你应该懂的：Handler">
-                <i class="fa fa-chevron-left"></i> Android开发你应该懂的：Handler
+              <a href="/2017/06/06/android启动外部地图应用并携带参数导航/" rel="next" title="启动外部地图App并携带参数导航">
+                <i class="fa fa-chevron-left"></i> 启动外部地图App并携带参数导航
               </a>
             
           </div>
@@ -450,6 +492,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/06/12/Android开发你应该懂的：AsyncTask/" rel="prev" title="Android开发你应该懂的：AsyncTask">
+                Android开发你应该懂的：AsyncTask <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -600,7 +646,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一-什么是URI和URL"><span class="nav-number">1.</span> <span class="nav-text">一.什么是URI和URL</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1什么是URI"><span class="nav-number">1.0.1.</span> <span class="nav-text">1.1什么是URI</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2什么是URL"><span class="nav-number">1.0.2.</span> <span class="nav-text">1.2什么是URL</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3什么是URN"><span class="nav-number">1.0.3.</span> <span class="nav-text">1.3什么是URN</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二-URL和URI有什么联系"><span class="nav-number">2.</span> <span class="nav-text">二.URL和URI有什么联系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三-URL和URI有什么区别"><span class="nav-number">3.</span> <span class="nav-text">三.URL和URI有什么区别</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一-Activity的四种状态"><span class="nav-number">1.</span> <span class="nav-text">一.Activity的四种状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二-Activity的生命周期"><span class="nav-number">2.</span> <span class="nav-text">二.Activity的生命周期</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#图解Activity生命周期"><span class="nav-number">2.1.</span> <span class="nav-text">图解Activity生命周期</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Activity生命周期分析"><span class="nav-number">2.2.</span> <span class="nav-text">Activity生命周期分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-Activity启动"><span class="nav-number">2.3.</span> <span class="nav-text">1.Activity启动</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-点击Home键回到主界面（Activity不可见"><span class="nav-number">2.4.</span> <span class="nav-text">2.点击Home键回到主界面（Activity不可见)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-再次回到Activity时"><span class="nav-number">2.5.</span> <span class="nav-text">3.再次回到Activity时</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-退出Activity时"><span class="nav-number">2.6.</span> <span class="nav-text">4.退出Activity时</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-横竖屏切换"><span class="nav-number">2.7.</span> <span class="nav-text">5.横竖屏切换</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Android任务栈"><span class="nav-number">3.</span> <span class="nav-text">Android任务栈</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Android启动模式"><span class="nav-number">4.</span> <span class="nav-text">Android启动模式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#为什么需要启动模式"><span class="nav-number">4.1.</span> <span class="nav-text">为什么需要启动模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Activity的四种启动模式"><span class="nav-number">4.2.</span> <span class="nav-text">Activity的四种启动模式</span></a></li></ol></li></ol></div>
             
 
           </div>
