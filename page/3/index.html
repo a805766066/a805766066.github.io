@@ -87,16 +87,15 @@
 
 
 
-<meta name="description" content="一.为什么要用到序列化进行android开发的时候，无法将对象的引用传给activitys和fragments，需要将这些对象放在一个Intent或者Bundle里面，然后在传传递">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Android开发你应该懂的：序列化">
-<meta property="og:url" content="http://andrman.cn/2017/06/12/Android开发你应该懂的：序列化/index.html">
+<meta name="description" content="学习总结 思考感悟 知识管理">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Andrman&#39;s Blog">
+<meta property="og:url" content="http://andrman.cn/page/3/index.html">
 <meta property="og:site_name" content="Andrman&#39;s Blog">
-<meta property="og:description" content="一.为什么要用到序列化进行android开发的时候，无法将对象的引用传给activitys和fragments，需要将这些对象放在一个Intent或者Bundle里面，然后在传传递">
-<meta property="og:updated_time" content="2018-03-26T06:01:28.000Z">
+<meta property="og:description" content="学习总结 思考感悟 知识管理">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Android开发你应该懂的：序列化">
-<meta name="twitter:description" content="一.为什么要用到序列化进行android开发的时候，无法将对象的引用传给activitys和fragments，需要将这些对象放在一个Intent或者Bundle里面，然后在传传递">
+<meta name="twitter:title" content="Andrman&#39;s Blog">
+<meta name="twitter:description" content="学习总结 思考感悟 知识管理">
 
 
 
@@ -124,13 +123,13 @@
 
 
 
-  <link rel="canonical" href="http://andrman.cn/2017/06/12/Android开发你应该懂的：序列化/"/>
+  <link rel="canonical" href="http://andrman.cn/page/3/"/>
 
 
 
 
 
-  <title> Android开发你应该懂的：序列化 | Andrman's Blog </title>
+  <title> Andrman's Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -165,7 +164,9 @@
     
   
 
-  <div class="container sidebar-position-left page-post-detail ">
+  <div class="container sidebar-position-left 
+   page-home 
+ ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -268,9 +269,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-
-  <div id="posts" class="posts-expand">
+  <section id="posts" class="posts-expand">
     
+      
 
   
 
@@ -279,7 +280,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://andrman.cn/2017/06/12/Android开发你应该懂的：序列化/">
+    <link itemprop="mainEntityOfPage" href="http://andrman.cn/2017/06/06/android启动外部地图应用并携带参数导航/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Andrman">
@@ -300,7 +301,10 @@
             
             
               
-                Android开发你应该懂的：序列化
+                
+                <a class="post-title-link" href="/2017/06/06/android启动外部地图应用并携带参数导航/" itemprop="url">
+                  启动外部地图App并携带参数导航
+                </a>
               
             
           </h1>
@@ -315,8 +319,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-12T00:00:00+08:00">
-                2017-06-12
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-06T17:14:33+08:00">
+                2017-06-06
               </time>
             
 
@@ -338,8 +342,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Android基础/" itemprop="url" rel="index">
-                    <span itemprop="name">Android基础</span>
+                  <a href="/categories/Android开发/" itemprop="url" rel="index">
+                    <span itemprop="name">Android开发</span>
                   </a>
                 </span>
 
@@ -351,21 +355,11 @@
 
           
             
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a class="cloud-tie-join-count" href="/2017/06/12/Android开发你应该懂的：序列化/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count join-count" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
           
 
           
           
-             <span id="/2017/06/12/Android开发你应该懂的：序列化/" class="leancloud_visitors" data-flag-title="Android开发你应该懂的：序列化">
+             <span id="/2017/06/06/android启动外部地图应用并携带参数导航/" class="leancloud_visitors" data-flag-title="启动外部地图App并携带参数导航">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -394,38 +388,28 @@
       
 
       
-        <h2 id="一-为什么要用到序列化"><a href="#一-为什么要用到序列化" class="headerlink" title="一.为什么要用到序列化"></a>一.为什么要用到序列化</h2><p>进行android开发的时候，无法将对象的引用传给activitys和fragments，需要将这些对象放在一个Intent或者Bundle里面，然后在传传递</p>
-<a id="more"></a>
-<h2 id="二-什么是序列化"><a href="#二-什么是序列化" class="headerlink" title="二.什么是序列化"></a>二.什么是序列化</h2><p>表示将一个对象转换成可存储或者可传输的状态。序列化后的对象可以在网络上传输，也可以村粗到本地</p>
-<h2 id="三-怎么序列化"><a href="#三-怎么序列化" class="headerlink" title="三.怎么序列化"></a>三.怎么序列化</h2><p>android中Intent传递类对象有两种方式实现</p>
-<p>1.Serializable (java自带)<br>Serializable是序列化的意思，表示将一个对象转换成可存储或者可传输的状态。序列化后可以传输或者存储</p>
-<p>使用方法如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line">public class Person implements Serializable &#123;</div><div class="line">    String name=&quot;&quot;;</div><div class="line">    private String number=&quot;&quot;;</div><div class="line">    private String address=&quot;&quot;; </div><div class="line">    private static final long serialVersionUID = 46543445; </div><div class="line"> </div><div class="line">    public void setName(String name)</div><div class="line">    &#123;</div><div class="line">        this.name = name;</div><div class="line">    &#125;</div><div class="line">     </div><div class="line">    public void setNumber(String number)</div><div class="line">    &#123;</div><div class="line">        this.number = number;</div><div class="line">    &#125;</div><div class="line"> </div><div class="line">    public void setAddress(String address)</div><div class="line">    &#123;</div><div class="line">        this.address = address;</div><div class="line">    &#125;</div><div class="line">     </div><div class="line">    public String getName()</div><div class="line">    &#123;</div><div class="line">        return name;</div><div class="line">    &#125;</div><div class="line">         </div><div class="line">    public String getNumber()</div><div class="line">    &#123;</div><div class="line">        return number;</div><div class="line">    &#125;</div><div class="line">         </div><div class="line">    public String getAddress()</div><div class="line">    &#123;</div><div class="line">        return address;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>2.Parecelable (android专用)<br>Parecelab方式的实现原理是将一个完整的对象进行分解，而分解好后的每一部分都是Intent所支持的数据类型，这样就可以传递了</p>
-<p>使用方法如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">public class MyParcelable implements Parcelable &#123;</div><div class="line">     private int mData;</div><div class="line"></div><div class="line">     public int describeContents() &#123;</div><div class="line">         return 0;</div><div class="line">     &#125;</div><div class="line"></div><div class="line">     public void writeToParcel(Parcel out, int flags) &#123;</div><div class="line">         out.writeInt(mData);</div><div class="line">     &#125;</div><div class="line"></div><div class="line">     public static final Parcelable.Creator&lt;MyParcelable&gt; CREATOR</div><div class="line">             = new Parcelable.Creator&lt;MyParcelable&gt;() &#123;</div><div class="line">         public MyParcelable createFromParcel(Parcel in) &#123;</div><div class="line">             return new MyParcelable(in);</div><div class="line">         &#125;</div><div class="line"></div><div class="line">         public MyParcelable[] newArray(int size) &#123;</div><div class="line">             return new MyParcelable[size];</div><div class="line">         &#125;</div><div class="line">     &#125;;</div><div class="line">     </div><div class="line">     private MyParcelable(Parcel in) &#123;</div><div class="line">         mData = in.readInt();</div><div class="line">     &#125;</div><div class="line"> &#125;</div></pre></td></tr></table></figure></p>
-<h2 id="四-Serializable和Parecelable的区别"><a href="#四-Serializable和Parecelable的区别" class="headerlink" title="四.Serializable和Parecelable的区别"></a>四.Serializable和Parecelable的区别</h2><p>1.Parecelable比Serializable性能高<br>2.Serializable在序列化的时候回产生大量的临时变量，从而引起频繁的GC<br>3.Parcelable不能使用在要将数据存储在磁盘上的情况，因为Parcelable不能很好的保证数据的持续性在外界有变化的情况下。尽管Serializable效率低点，但此时还是建议使用Serializable 。</p>
-
+        
+          <h3 id="一-检查手机中是否安装了地图应用"><a href="#一-检查手机中是否安装了地图应用" class="headerlink" title="一.检查手机中是否安装了地图应用"></a>一.检查手机中是否安装了地图应用</h3><p>不得不说高德地图SDK很强大，用它我们可以实现很多地图相关业务，比如今天用到的这个，携带参数跳转到手机中已装的地图应用进行导航。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/06/06/android启动外部地图应用并携带参数导航/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
       
     </div>
 
     <div>
       
-        
-
-      
     </div>
 
     <div>
       
-        
-
-      
     </div>
 
     <div>
-      
-        
-
       
     </div>
 
@@ -433,42 +417,25 @@
       
 
       
-        
+
       
 
       
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2017/06/10/Android开发你应该懂的 ：Activity/" rel="next" title="我理解的Activity">
-                <i class="fa fa-chevron-left"></i> 我理解的Activity
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/06/12/Android开发你应该懂的：Service/" rel="prev" title="Android开发你应该懂的：Service">
-                Android开发你应该懂的：Service <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
       
-
-      
+        <div class="post-eof"></div>
       
     </footer>
   </article>
 
 
+    
+  </section>
 
-    <div class="post-spread">
-      
-    </div>
-  </div>
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span>
+  </nav>
+
 
 
           </div>
@@ -476,12 +443,6 @@
 
 
           
-  <div class="comments" id="comments">
-    
-      <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
-    
-  </div>
-
 
         </div>
         
@@ -501,17 +462,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview sidebar-panel">
+      <section class="site-overview sidebar-panel sidebar-panel-active">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.jpg"
@@ -593,22 +545,6 @@
 
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一-为什么要用到序列化"><span class="nav-number">1.</span> <span class="nav-text">一.为什么要用到序列化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二-什么是序列化"><span class="nav-number">2.</span> <span class="nav-text">二.什么是序列化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三-怎么序列化"><span class="nav-number">3.</span> <span class="nav-text">三.怎么序列化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四-Serializable和Parecelable的区别"><span class="nav-number">4.</span> <span class="nav-text">四.Serializable和Parecelable的区别</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
@@ -723,10 +659,6 @@
 
 
   
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
-
-
 
   
 
