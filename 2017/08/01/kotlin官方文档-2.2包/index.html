@@ -93,7 +93,7 @@
 <meta property="og:url" content="http://andrman.cn/2017/08/01/kotlin官方文档-2.2包/index.html">
 <meta property="og:site_name" content="Andrman&#39;s Blog">
 <meta property="og:description" content="源文件可以从包声明开始： 1234567package foo.barfun baz() &amp;#123;&amp;#125;class Goo &amp;#123;&amp;#125;// ... 源文件所有内容（无论是类还是函数）都包含在声明的包内。 所以上例中 baz() 的全名是 foo.bar.baz、Goo 的全名是 foo.bar.Goo。如果没有指定包名，那这个文件的内容就从属于没有名字的 “default”">
-<meta property="og:updated_time" content="2018-03-31T07:17:16.000Z">
+<meta property="og:updated_time" content="2018-03-31T07:24:16.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="kotlin官方文档-2.2包">
 <meta name="twitter:description" content="源文件可以从包声明开始： 1234567package foo.barfun baz() &amp;#123;&amp;#125;class Goo &amp;#123;&amp;#125;// ... 源文件所有内容（无论是类还是函数）都包含在声明的包内。 所以上例中 baz() 的全名是 foo.bar.baz、Goo 的全名是 foo.bar.Goo。如果没有指定包名，那这个文件的内容就从属于没有名字的 “default”">
@@ -398,7 +398,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">package foo.bar</div><div class="line"></div><div class="line">fun baz() &#123;&#125;</div><div class="line"></div><div class="line">class Goo &#123;&#125;</div><div class="line"></div><div class="line">// ...</div></pre></td></tr></table></figure>
 <p>源文件所有内容（无论是类还是函数）都包含在声明的包内。 所以上例中 baz() 的全名是 foo.bar.baz、Goo 的全名是 foo.bar.Goo。<br>如果没有指定包名，那这个文件的内容就从属于没有名字的 “default” 包。</p>
 <a id="more"></a>
-<h2 id="默认导入"><a href="#默认导入" class="headerlink" title="默认导入"></a>默认导入<a href="http://www.andrman.com#默认导入" target="_blank" rel="external"></a></h2><p>默认情况下，将多个软件包导入到每个Kotlin文件中：</p>
+<h2 id="默认导入"><a href="#默认导入" class="headerlink" title="默认导入"></a>默认导入</h2><p>默认情况下，将多个软件包导入到每个Kotlin文件中：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">kotlin.*</div><div class="line">kotlin.annotation.*</div><div class="line">kotlin.collections.*</div><div class="line">kotlin.comparisons.* (since 1.1)</div><div class="line">kotlin.io.*</div><div class="line">kotlin.ranges.*</div><div class="line">kotlin.sequences.*</div><div class="line">kotlin.text.*</div></pre></td></tr></table></figure>
 <p>根据目标平台导入其他包：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">VM：</div><div class="line">的java.lang。*</div><div class="line">kotlin.jvm。*</div><div class="line">JS：</div><div class="line">kotlin.js。*</div></pre></td></tr></table></figure></p>
 <h2 id="导入"><a href="#导入" class="headerlink" title="导入"></a>导入</h2><p>除了默认导入之外，每个文件可以包含它自己的导入指令。 导入语法在<a href="http://www.andrman.com#import" target="_blank" rel="external">语法</a>中讲述。<br>可以导入一个单独的名字，如.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">import foo.Bar // 现在 Bar 可以不用限定符访问</div></pre></td></tr></table></figure></p>
