@@ -87,16 +87,16 @@
 
 
 
-<meta name="description" content="源文件可以从包声明开始： 1234567package foo.barfun baz() &amp;#123;&amp;#125;class Goo &amp;#123;&amp;#125;// ... 源文件所有内容（无论是类还是函数）都包含在声明的包内。 所以上例中 baz() 的全名是 foo.bar.baz、Goo 的全名是 foo.bar.Goo。如果没有指定包名，那这个文件的内容就从属于没有名字的 “default”">
+<meta name="description" content="返回与跳转Kotlin 有三种结构跳转表达式：  – return 默认情况下从最近的闭合函数或者匿名函数返回。– break 结束最近的闭合循环– continue 跳到最近的闭合循环的下一次循环    上述表达式都可以作为更大的表达式的一部分： 1val s = person.name ?: return 这些表达式的类型是 Nothing type">
 <meta property="og:type" content="article">
-<meta property="og:title" content="kotlin官方文档-2.2包">
-<meta property="og:url" content="http://andrman.cn/2017/08/01/kotlin官方文档-2.2包/index.html">
+<meta property="og:title" content="kotlin官方文档-2.4返回与跳转">
+<meta property="og:url" content="http://andrman.cn/2017/08/05/kotlin官方文档-2.4返回与跳转/index.html">
 <meta property="og:site_name" content="Andrman&#39;s Blog">
-<meta property="og:description" content="源文件可以从包声明开始： 1234567package foo.barfun baz() &amp;#123;&amp;#125;class Goo &amp;#123;&amp;#125;// ... 源文件所有内容（无论是类还是函数）都包含在声明的包内。 所以上例中 baz() 的全名是 foo.bar.baz、Goo 的全名是 foo.bar.Goo。如果没有指定包名，那这个文件的内容就从属于没有名字的 “default”">
-<meta property="og:updated_time" content="2018-03-31T07:24:16.000Z">
+<meta property="og:description" content="返回与跳转Kotlin 有三种结构跳转表达式：  – return 默认情况下从最近的闭合函数或者匿名函数返回。– break 结束最近的闭合循环– continue 跳到最近的闭合循环的下一次循环    上述表达式都可以作为更大的表达式的一部分： 1val s = person.name ?: return 这些表达式的类型是 Nothing type">
+<meta property="og:updated_time" content="2018-03-31T07:39:04.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="kotlin官方文档-2.2包">
-<meta name="twitter:description" content="源文件可以从包声明开始： 1234567package foo.barfun baz() &amp;#123;&amp;#125;class Goo &amp;#123;&amp;#125;// ... 源文件所有内容（无论是类还是函数）都包含在声明的包内。 所以上例中 baz() 的全名是 foo.bar.baz、Goo 的全名是 foo.bar.Goo。如果没有指定包名，那这个文件的内容就从属于没有名字的 “default”">
+<meta name="twitter:title" content="kotlin官方文档-2.4返回与跳转">
+<meta name="twitter:description" content="返回与跳转Kotlin 有三种结构跳转表达式：  – return 默认情况下从最近的闭合函数或者匿名函数返回。– break 结束最近的闭合循环– continue 跳到最近的闭合循环的下一次循环    上述表达式都可以作为更大的表达式的一部分： 1val s = person.name ?: return 这些表达式的类型是 Nothing type">
 
 
 
@@ -124,13 +124,13 @@
 
 
 
-  <link rel="canonical" href="http://andrman.cn/2017/08/01/kotlin官方文档-2.2包/"/>
+  <link rel="canonical" href="http://andrman.cn/2017/08/05/kotlin官方文档-2.4返回与跳转/"/>
 
 
 
 
 
-  <title> kotlin官方文档-2.2包 | Andrman's Blog </title>
+  <title> kotlin官方文档-2.4返回与跳转 | Andrman's Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -279,7 +279,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://andrman.cn/2017/08/01/kotlin官方文档-2.2包/">
+    <link itemprop="mainEntityOfPage" href="http://andrman.cn/2017/08/05/kotlin官方文档-2.4返回与跳转/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Andrman">
@@ -300,7 +300,7 @@
             
             
               
-                kotlin官方文档-2.2包
+                kotlin官方文档-2.4返回与跳转
               
             
           </h1>
@@ -315,8 +315,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-01T11:22:13+08:00">
-                2017-08-01
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-05T05:26:00+08:00">
+                2017-08-05
               </time>
             
 
@@ -356,7 +356,7 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a class="cloud-tie-join-count" href="/2017/08/01/kotlin官方文档-2.2包/#comments" itemprop="discussionUrl">
+                <a class="cloud-tie-join-count" href="/2017/08/05/kotlin官方文档-2.4返回与跳转/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count join-count" itemprop="commentCount"></span>
                 </a>
               </span>
@@ -365,7 +365,7 @@
 
           
           
-             <span id="/2017/08/01/kotlin官方文档-2.2包/" class="leancloud_visitors" data-flag-title="kotlin官方文档-2.2包">
+             <span id="/2017/08/05/kotlin官方文档-2.4返回与跳转/" class="leancloud_visitors" data-flag-title="kotlin官方文档-2.4返回与跳转">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -394,22 +394,32 @@
       
 
       
-        <p>源文件可以从包声明开始：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">package foo.bar</div><div class="line"></div><div class="line">fun baz() &#123;&#125;</div><div class="line"></div><div class="line">class Goo &#123;&#125;</div><div class="line"></div><div class="line">// ...</div></pre></td></tr></table></figure>
-<p>源文件所有内容（无论是类还是函数）都包含在声明的包内。 所以上例中 baz() 的全名是 foo.bar.baz、Goo 的全名是 foo.bar.Goo。<br>如果没有指定包名，那这个文件的内容就从属于没有名字的 “default” 包。</p>
+        <h2 id="返回与跳转"><a href="#返回与跳转" class="headerlink" title="返回与跳转"></a>返回与跳转</h2><p>Kotlin 有三种结构跳转表达式：</p>
+<blockquote>
+<p>– return 默认情况下从最近的闭合函数或者<a href="https://kotlinlang.org/docs/reference/lambdas.html#anonymous-functions" target="_blank" rel="external">匿名函数</a>返回。<br>– break 结束最近的闭合循环<br>– continue 跳到最近的闭合循环的下一次循环  </p>
+</blockquote>
+<p>上述表达式都可以作为更大的表达式的一部分：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">val</span> s = person.name ?: <span class="keyword">return</span></div></pre></td></tr></table></figure>
+<p>这些表达式的类型是 <a href="http://kotlinlang.org/docs/reference/exceptions.html#the-nothing-type" target="_blank" rel="external">Nothing type</a></p>
 <a id="more"></a>
-<h2 id="默认导入"><a href="#默认导入" class="headerlink" title="默认导入"></a>默认导入</h2><p>默认情况下，将多个软件包导入到每个Kotlin文件中：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">kotlin.*</div><div class="line">kotlin.annotation.*</div><div class="line">kotlin.collections.*</div><div class="line">kotlin.comparisons.* (since 1.1)</div><div class="line">kotlin.io.*</div><div class="line">kotlin.ranges.*</div><div class="line">kotlin.sequences.*</div><div class="line">kotlin.text.*</div></pre></td></tr></table></figure>
-<p>根据目标平台导入其他包：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">VM：</div><div class="line">的java.lang。*</div><div class="line">kotlin.jvm。*</div><div class="line">JS：</div><div class="line">kotlin.js。*</div></pre></td></tr></table></figure></p>
-<h2 id="导入"><a href="#导入" class="headerlink" title="导入"></a>导入</h2><p>除了默认导入之外，每个文件可以包含它自己的导入指令。 导入语法在<a href="http://www.andrman.com#import" target="_blank" rel="external">语法</a>中讲述。<br>可以导入一个单独的名字，如.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">import foo.Bar // 现在 Bar 可以不用限定符访问</div></pre></td></tr></table></figure></p>
-<p>或者范围内的所有可用的内容 (包，类，对象，等等):</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">import foo.*/ /foo 中的所有都可以使用</div></pre></td></tr></table></figure>
-<p>如果命名有冲突，我们可以使用 as 关键字局部重命名解决冲突</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">import foo.Bar // Bar 可访问</div><div class="line">import bar.Bar as bBar // bBar 代表“bar.Bar”</div></pre></td></tr></table></figure>
-<p>import关键字不局限于导入类;您也可以使用它来导入其他声明:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">顶层函数及属性</div><div class="line">在对象声明中声明的函数和属性;</div><div class="line">枚举常量</div></pre></td></tr></table></figure>
-<p>与 Java 不同，Kotlin 没有单独的 “import static” 语法； 所有这些声明都用 import 关键字导入。</p>
-<h2 id="顶层声明的可见性"><a href="#顶层声明的可见性" class="headerlink" title="顶层声明的可见性"></a>顶层声明的可见性<a href="http://www.andrman.com#顶层声明的可见性" target="_blank" rel="external"></a></h2><p>如果顶层声明是 <em>private</em> 的，它是声明它的文件所私有的（参见 <a href="http://www.andrman.cn" target="_blank" rel="external">可见性修饰符</a>）。</p>
+<h3 id="break-和-continue-标签"><a href="#break-和-continue-标签" class="headerlink" title="break 和 continue 标签"></a>break 和 continue 标签</h3><p>Kotlin 中任意表达式可以添加标签。标签通过 @ 结尾来标识，比如：<code>abc@</code>，<code>fooBar@</code> 都是有效的(参看<a href="http://kotlinlang.org/docs/reference/grammar.html#label" target="_blank" rel="external">语法</a>)。使用标签表达式，只需像这样：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="symbol">loop@</span> <span class="keyword">for</span> (i <span class="keyword">in</span> <span class="number">1.</span><span class="number">.100</span>)&#123;</div><div class="line">	<span class="comment">// ...</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>我们可以用标签实现 break 或者 continue 的快速跳转：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="symbol">loop@</span> <span class="keyword">for</span> (i <span class="keyword">in</span> <span class="number">1.</span><span class="number">.100</span>) &#123;</div><div class="line">	<span class="keyword">for</span> (j <span class="keyword">in</span> i.<span class="number">.100</span>) &#123;</div><div class="line">		<span class="keyword">if</span> (...)</div><div class="line">			<span class="keyword">break</span><span class="symbol">@loop</span></div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>break 是跳转标签后面的表达式，continue 是跳转到循环的下一次迭代。</p>
+<h3 id="返回到标签"><a href="#返回到标签" class="headerlink" title="返回到标签"></a>返回到标签</h3><p>在字面函数，局部函数，以及对象表达式中，函数在Kotlin中是可以嵌套的。合法的return 允许我们返回到外层函数。最重要的使用场景就是从lambda表达式中返回，还记得我们之前的写法吗：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">fun</span> <span class="title">foo</span><span class="params">()</span></span> &#123;</div><div class="line">	ints.forEach &#123;</div><div class="line">		<span class="keyword">if</span> (it  == <span class="number">0</span>) <span class="keyword">return</span></div><div class="line">		print(it)</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>return 表达式返回到最近的闭合函数，比如 <code>foo</code> (注意这样非局部返回仅仅可以在<a href="http://kotlinlang.org/docs/reference/inline-functions.html" target="_blank" rel="external">内联函数</a>中使用)。如果我们需要从一个字面函数返回可以使用标签修饰 return :</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">fun</span> <span class="title">foo</span><span class="params">()</span></span> &#123;</div><div class="line">	ints.forEach <span class="symbol">lit@</span> &#123;</div><div class="line">		<span class="keyword">if</span> (it ==<span class="number">0</span>) <span class="keyword">return</span>＠lit</div><div class="line">		print(it)</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>现在它仅仅从字面函数中返回。经常用一种更方便的含蓄的标签：比如用和传入的 lambda 表达式名字相同的标签。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">fun</span> <span class="title">foo</span><span class="params">()</span></span> &#123;</div><div class="line">	ints.forEach &#123;</div><div class="line">		<span class="keyword">if</span> (it == <span class="number">0</span>) <span class="keyword">return</span><span class="symbol">@forEach</span></div><div class="line">		print(it)</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>另外，我们可以用函数表达式替代匿名函数。在函数表达式中使用 return 语句可以从函数表达式中返回。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">fun</span> <span class="title">foo</span><span class="params">()</span></span> &#123;</div><div class="line">	ints.forEach(<span class="function"><span class="title">fun</span><span class="params">(value:  <span class="type">Int</span>)</span></span>&#123;</div><div class="line">		<span class="keyword">if</span> (value == <span class="number">0</span>) <span class="keyword">return</span></div><div class="line">		print(value)</div><div class="line">	&#125;)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>当返回一个值时，解析器给了一个参考，比如(原文When returning a value, the parser gives preference to the qualified return, i.e.)：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">return</span><span class="symbol">@a</span> <span class="number">1</span></div></pre></td></tr></table></figure>
+<p>表示 “在标签 <code>@a</code> 返回 <code>1</code> ” 而不是返回一个标签表达式 <code>(@a 1)</code></p>
+<p>命名函数自动定义标签：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">foo outer() &#123;</div><div class="line">	foo inner() &#123;</div><div class="line">		<span class="keyword">return</span><span class="symbol">@outer</span></div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 
       
     </div>
@@ -446,8 +456,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/08/01/kotlin官方文档-2.1基础/" rel="next" title="kotlin官方文档-2.1基础">
-                <i class="fa fa-chevron-left"></i> kotlin官方文档-2.1基础
+              <a href="/2017/08/01/kotlin官方文档-2.3控制流程/" rel="next" title="kotlin官方文档-2.3控制流程">
+                <i class="fa fa-chevron-left"></i> kotlin官方文档-2.3控制流程
               </a>
             
           </div>
@@ -456,8 +466,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/08/01/kotlin官方文档-2.3控制流程/" rel="prev" title="kotlin官方文档-2.3控制流程">
-                kotlin官方文档-2.3控制流程 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/08/08/kotlin官方文档3.1-类和继承/" rel="prev" title="kotlin官方文档3.1-类和继承">
+                kotlin官方文档3.1-类和继承 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -609,7 +619,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#默认导入"><span class="nav-number">1.</span> <span class="nav-text">默认导入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#导入"><span class="nav-number">2.</span> <span class="nav-text">导入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#顶层声明的可见性"><span class="nav-number">3.</span> <span class="nav-text">顶层声明的可见性</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#返回与跳转"><span class="nav-number">1.</span> <span class="nav-text">返回与跳转</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#break-和-continue-标签"><span class="nav-number">1.1.</span> <span class="nav-text">break 和 continue 标签</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#返回到标签"><span class="nav-number">1.2.</span> <span class="nav-text">返回到标签</span></a></li></ol></li></ol></div>
             
 
           </div>
