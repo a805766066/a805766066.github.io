@@ -87,16 +87,16 @@
 
 
 
-<meta name="description" content="###产生的原因是：tomcat中也有servlet-api包，这样，发生了冲突。 ###解决办法： 打开pom.xml，将：12345&amp;lt;dependency&amp;gt;    	&amp;lt;groupId&amp;gt;javax.servlet&amp;lt;/groupId&amp;gt;    	&amp;lt;artifactId&amp;gt;servlet-api&amp;lt;/artifactId&amp;gt;    	&amp;lt;ver">
+<meta name="description" content="###产生的原因是：tomcat中也有servlet-api包，这样，发生了冲突。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Failed to execute goal org.apache.tomcat.maven:tomcat7-maven-plugin:2.2">
 <meta property="og:url" content="http://andrman.cn/2016/03/16/Failed to execute goal org.apache.tomcat.maven/index.html">
 <meta property="og:site_name" content="Andrman&#39;s Blog">
-<meta property="og:description" content="###产生的原因是：tomcat中也有servlet-api包，这样，发生了冲突。 ###解决办法： 打开pom.xml，将：12345&amp;lt;dependency&amp;gt;    	&amp;lt;groupId&amp;gt;javax.servlet&amp;lt;/groupId&amp;gt;    	&amp;lt;artifactId&amp;gt;servlet-api&amp;lt;/artifactId&amp;gt;    	&amp;lt;ver">
-<meta property="og:updated_time" content="2018-09-15T13:31:10.994Z">
+<meta property="og:description" content="###产生的原因是：tomcat中也有servlet-api包，这样，发生了冲突。">
+<meta property="og:updated_time" content="2018-09-15T13:33:23.823Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Failed to execute goal org.apache.tomcat.maven:tomcat7-maven-plugin:2.2">
-<meta name="twitter:description" content="###产生的原因是：tomcat中也有servlet-api包，这样，发生了冲突。 ###解决办法： 打开pom.xml，将：12345&amp;lt;dependency&amp;gt;    	&amp;lt;groupId&amp;gt;javax.servlet&amp;lt;/groupId&amp;gt;    	&amp;lt;artifactId&amp;gt;servlet-api&amp;lt;/artifactId&amp;gt;    	&amp;lt;ver">
+<meta name="twitter:description" content="###产生的原因是：tomcat中也有servlet-api包，这样，发生了冲突。">
 
 
 
@@ -416,6 +416,7 @@
 
       
         <p>###产生的原因是：<br>tomcat中也有servlet-api包，这样，发生了冲突。</p>
+<a id="more"></a>
 <p>###解决办法：</p>
 <p>打开pom.xml，将：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;dependency&gt;</div><div class="line">    	&lt;groupId&gt;javax.servlet&lt;/groupId&gt;</div><div class="line">    	&lt;artifactId&gt;servlet-api&lt;/artifactId&gt;</div><div class="line">    	&lt;version&gt;3.0-alpha-1&lt;/version&gt;</div><div class="line">    &lt;/dependency&gt;</div></pre></td></tr></table></figure></p>
 <p>修改为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;dependency&gt;</div><div class="line">    	&lt;groupId&gt;javax.servlet&lt;/groupId&gt;</div><div class="line">    	&lt;artifactId&gt;servlet-api&lt;/artifactId&gt;</div><div class="line">    	&lt;version&gt;3.0-alpha-1&lt;/version&gt;</div><div class="line">    	&lt;scope&gt;provided&lt;/scope&gt; </div><div class="line">    &lt;/dependency&gt;</div></pre></td></tr></table></figure></p>
