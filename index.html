@@ -323,7 +323,7 @@
               
                 
                 <a class="post-title-link" href="/2017/08/30/Mybatis学习笔记(三) 缓存/" itemprop="url">
-                  Mybatis学习笔记(三) 缓存
+                  Mybatis学习笔记(三)缓存
                 </a>
               
             
@@ -390,7 +390,7 @@
 
           
           
-             <span id="/2017/08/30/Mybatis学习笔记(三) 缓存/" class="leancloud_visitors" data-flag-title="Mybatis学习笔记(三) 缓存">
+             <span id="/2017/08/30/Mybatis学习笔记(三) 缓存/" class="leancloud_visitors" data-flag-title="Mybatis学习笔记(三)缓存">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -531,8 +531,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Android基础/" itemprop="url" rel="index">
-                    <span itemprop="name">Android基础</span>
+                  <a href="/categories/JAVA/" itemprop="url" rel="index">
+                    <span itemprop="name">JAVA</span>
                   </a>
                 </span>
 
@@ -589,8 +589,7 @@
 
       
         
-          <p>####Environment</p>
-<p>默认的环境 ID（比如:default=”development”<br>每个 environment 元素定义的环境 ID（比如:id=”development”<br>事务管理器的配置（比如:type=”JDBC”<br>数据源的配置（比如:type=”POOLED”<br>每个数据库对应一个 SqlSessionFactory 实例,每个 SqlSessionFactory 实例只能选择Environment<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">常用配置</div><div class="line">&lt;!-- 设置一个默认的连接环境信息 --&gt;</div><div class="line">&lt;environments default=&quot;development&quot;&gt;</div><div class="line">    &lt;environment id=&quot;development&quot;&gt;</div><div class="line">        &lt;!-- mybatis使用jdbc事务管理方式 --&gt;</div><div class="line">        &lt;transactionManager type=&quot;JDBC&quot;/&gt;</div><div class="line">        &lt;!-- mybatis使用连接池方式来获取连接 --&gt;</div><div class="line">        &lt;dataSource type=&quot;POOLED&quot;&gt;</div><div class="line">            &lt;!-- 配置与数据库交互的4个必要属性 --&gt;</div><div class="line">            &lt;property name=&quot;driver&quot; value=&quot;$&#123;jdbc.driver&#125;&quot;/&gt;</div><div class="line">            &lt;property name=&quot;url&quot; value=&quot;$&#123;jdbc.url&#125;&quot;/&gt;</div><div class="line">            &lt;property name=&quot;username&quot; value=&quot;$&#123;jdbc.username&#125;&quot;/&gt;</div><div class="line">            &lt;property name=&quot;password&quot; value=&quot;$&#123;jdbc.password&#125;&quot;/&gt;</div><div class="line">        &lt;/dataSource&gt;</div><div class="line">    &lt;/environment&gt;</div><div class="line">&lt;/environments&gt;</div><div class="line"></div><div class="line">public final class Environment &#123;</div><div class="line">  private final String id;</div><div class="line">  private final TransactionFactory transactionFactory;</div><div class="line">  private final DataSource dataSource;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+          <h3 id="Environment"><a href="#Environment" class="headerlink" title="Environment"></a>Environment</h3><p>默认的环境 ID（比如:default=”development”<br>每个 environment 元素定义的环境 ID（比如:id=”development”<br>事务管理器的配置（比如:type=”JDBC”<br>数据源的配置（比如:type=”POOLED”<br>每个数据库对应一个 SqlSessionFactory 实例,每个 SqlSessionFactory 实例只能选择Environment<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">常用配置</div><div class="line">&lt;!-- 设置一个默认的连接环境信息 --&gt;</div><div class="line">&lt;environments default=&quot;development&quot;&gt;</div><div class="line">    &lt;environment id=&quot;development&quot;&gt;</div><div class="line">        &lt;!-- mybatis使用jdbc事务管理方式 --&gt;</div><div class="line">        &lt;transactionManager type=&quot;JDBC&quot;/&gt;</div><div class="line">        &lt;!-- mybatis使用连接池方式来获取连接 --&gt;</div><div class="line">        &lt;dataSource type=&quot;POOLED&quot;&gt;</div><div class="line">            &lt;!-- 配置与数据库交互的4个必要属性 --&gt;</div><div class="line">            &lt;property name=&quot;driver&quot; value=&quot;$&#123;jdbc.driver&#125;&quot;/&gt;</div><div class="line">            &lt;property name=&quot;url&quot; value=&quot;$&#123;jdbc.url&#125;&quot;/&gt;</div><div class="line">            &lt;property name=&quot;username&quot; value=&quot;$&#123;jdbc.username&#125;&quot;/&gt;</div><div class="line">            &lt;property name=&quot;password&quot; value=&quot;$&#123;jdbc.password&#125;&quot;/&gt;</div><div class="line">        &lt;/dataSource&gt;</div><div class="line">    &lt;/environment&gt;</div><div class="line">&lt;/environments&gt;</div><div class="line"></div><div class="line">public final class Environment &#123;</div><div class="line">  private final String id;</div><div class="line">  private final TransactionFactory transactionFactory;</div><div class="line">  private final DataSource dataSource;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2017/08/20/Mybatis学习笔记(二)XML配置/#more" rel="contents">
