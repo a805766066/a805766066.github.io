@@ -300,6 +300,631 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://andrman.cn/2017/08/30/Mybatis学习笔记(三) 缓存/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Andrman">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Andrman's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/08/30/Mybatis学习笔记(三) 缓存/" itemprop="url">
+                  Mybatis学习笔记(三) 缓存
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-30T00:00:00+08:00">
+                2017-08-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JAVA/" itemprop="url" rel="index">
+                    <span itemprop="name">JAVA</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/08/30/Mybatis学习笔记(三) 缓存/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/08/30/Mybatis学习笔记(三) 缓存/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2017/08/30/Mybatis学习笔记(三) 缓存/" class="leancloud_visitors" data-flag-title="Mybatis学习笔记(三) 缓存">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="缓存"><a href="#缓存" class="headerlink" title="缓存"></a>缓存</h2><p>查询缓存主要是为了提高查询访问速度，即当用户执行一次查询后，会将该数据结果放到缓存中，当下次再执行此查询时就不会访问数据库了而是直接从缓存中获取该数据。 如果在缓存中找到了数据那叫做命中。</p>
+<h2 id="一级缓存"><a href="#一级缓存" class="headerlink" title="一级缓存"></a>一级缓存</h2><ul>
+<li>MyBatis的一级查询缓存（也叫作本地缓存）是基于org.apache.ibatis.cache.impl.PerpetualCache 类的 HashMap本地缓存，其<strong>作用域是SqlSession</strong></li>
+<li>在同一个SqlSession中两次执行相同的 sql 查询语句，第一次执行完毕后，会将查询结果写入到缓存中，第二次会从缓存中直接获取数据，而不再到数据库中进行查询，这样就减少了数据库的访问，从而提高查询效率。</li>
+<li>当一个 SqlSession 结束后，该 SqlSession 中的一级查询缓存也就不存在了。 myBatis 默认一级查询缓存是<strong>开启状态</strong>，且<strong>不能关闭</strong>。</li>
+<li>增删改会<strong>清空缓存</strong>，无论是否commit</li>
+<li>当SqlSession关闭和提交时，会清空一级缓存</li>
+</ul>
+<h4 id="同一sqlSession-多次查询同一SQL时会使用缓存"><a href="#同一sqlSession-多次查询同一SQL时会使用缓存" class="headerlink" title="同一sqlSession 多次查询同一SQL时会使用缓存"></a>同一sqlSession 多次查询同一SQL时会使用缓存</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">@Test</div><div class="line">public void testLocalCache() throws Exception &#123;</div><div class="line">    SqlSession sqlSession = factory.openSession(); // 自动提交事务</div><div class="line">    StudentMapper studentMapper = sqlSession.getMapper(StudentMapper.class);</div><div class="line"></div><div class="line">    System.out.println(studentMapper.getStudentById(1));</div><div class="line">    // 第二三次会从缓存中拿数据，不查数据库</div><div class="line">    System.out.println(studentMapper.getStudentById(1));</div><div class="line">    System.out.println(studentMapper.getStudentById(1));</div><div class="line"></div><div class="line">    sqlSession.close();</div><div class="line">&#125;</div><div class="line">复制代码</div></pre></td></tr></table></figure>
+<p><img src="https://upload-images.jianshu.io/upload_images/1672313-62f62c0c3852ac3d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<h4 id="同一sqlSession-有增删改时会清空缓存"><a href="#同一sqlSession-有增删改时会清空缓存" class="headerlink" title="同一sqlSession 有增删改时会清空缓存"></a>同一sqlSession 有增删改时会清空缓存</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">@Test</div><div class="line">public void testLocalCacheClear() throws Exception &#123;</div><div class="line">    SqlSession sqlSession = factory.openSession(true); // 自动提交事务</div><div class="line">    StudentMapper studentMapper = sqlSession.getMapper(StudentMapper.class);</div><div class="line"></div><div class="line">    System.out.println(studentMapper.getStudentById(1));</div><div class="line">    // 增删改会清空缓存</div><div class="line">    System.out.println(&quot;增加了&quot; + studentMapper.addStudent(buildStudent()) + &quot;个学生&quot;);</div><div class="line">    // 会从数据库查数据</div><div class="line">    System.out.println(studentMapper.getStudentById(1));</div><div class="line"></div><div class="line">    sqlSession.close();</div><div class="line">&#125;</div><div class="line">复制代码</div></pre></td></tr></table></figure>
+<p><img src="https://upload-images.jianshu.io/upload_images/1672313-e33544863536a3c5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<h3 id="一级缓存实现"><a href="#一级缓存实现" class="headerlink" title="一级缓存实现"></a>一级缓存实现</h3><p>对SqlSession的操作mybatis内部都是通过Executor来执行的。Executor的生命周期和SqlSession是一致的。Mybatis在Executor中创建了一级缓存，基于PerpetualCache 类的 HashMap</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line">public class DefaultSqlSession implements SqlSession &#123;</div><div class="line"></div><div class="line">   private Configuration configuration;</div><div class="line">   // 执行器</div><div class="line">   private Executor executor;</div><div class="line">   private boolean autoCommit;</div><div class="line">   private boolean dirty;</div><div class="line">   private List&lt;Cursor&lt;?&gt;&gt; cursorList;</div><div class="line">&#125;</div><div class="line">public abstract class BaseExecutor implements Executor &#123;</div><div class="line"></div><div class="line">   private static final Log log = LogFactory.getLog(BaseExecutor.class);</div><div class="line">   protected Transaction transaction;</div><div class="line">   protected Executor wrapper;</div><div class="line">   protected ConcurrentLinkedQueue&lt;DeferredLoad&gt; deferredLoads;</div><div class="line">   // 缓存实例</div><div class="line">   protected PerpetualCache localCache;</div><div class="line">   protected PerpetualCache localOutputParameterCache;</div><div class="line">   protected Configuration configuration;</div><div class="line">   protected int queryStack;</div><div class="line">   private boolean closed;</div><div class="line"></div><div class="line">    protected BaseExecutor(Configuration configuration, Transaction transaction) &#123; </div><div class="line">        this.configuration = configuration; this.transaction = transaction;</div><div class="line">        this.deferredLoads = new ConcurrentLinkedQueue&lt;DeferredLoad&gt;();</div><div class="line">        this.closed = false; this.wrapperExecutor = this;</div><div class="line">        //mybatis一级缓存，在创建SqlSession-&gt;Executor时候动态创建，随着sqlSession销毁而销毁</div><div class="line">        this.localCache = new PerpetualCache(&quot;LocalCache&quot;);</div><div class="line">        this.localOutputParameterCache = new PerpetualCache(&quot;LocalOutputParameterCache&quot;); </div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">// 缓存实现类</div><div class="line">public class PerpetualCache implements Cache &#123;</div><div class="line"></div><div class="line">    private String id;</div><div class="line">    private Map&lt;Object, Object&gt; cache = new HashMap&lt;Object, Object&gt;();</div><div class="line">    public PerpetualCache(String id) &#123;</div><div class="line">         this.id = id;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">复制代码</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line">//SqlSession.selectList会调用此方法（一级缓存操作，总是先查询一级缓存，缓存中不存在再查询数据库）</div><div class="line">public &lt;E&gt; List&lt;E&gt; query(MappedStatement ms, Object parameter, RowBounds rowBounds, ResultHandler resultHandler, CacheKey key, BoundSql boundSql) throws SQLException &#123;     </div><div class="line">    ErrorContext.instance().resource(ms.getResource()).activity(&quot;executing a query&quot;).object(ms.getId()); </div><div class="line">    if (closed) &#123;</div><div class="line">        //如果已经关闭，报错</div><div class="line">        throw new ExecutorException(&quot;Executor was closed.&quot;);</div><div class="line">    &#125; </div><div class="line">    //先清一级缓存，再查询，但仅仅查询堆栈为0才清，为了处理递归调用 </div><div class="line">    if (queryStack == 0 &amp;&amp; ms.isFlushCacheRequired()) &#123; </div><div class="line">        clearLocalCache(); </div><div class="line">    &#125; </div><div class="line">    List&lt;E&gt; list; </div><div class="line">    try &#123; </div><div class="line">        //加一，这样递归调用到上面的时候就不会再清局部缓存了</div><div class="line">        queryStack++; </div><div class="line">        list = resultHandler == null ? (List&lt;E&gt;) localCache.getObject(key) : null; </div><div class="line">        if (list != null) &#123;</div><div class="line">            //如果查到localCache缓存，处理</div><div class="line">             handleLocallyCachedOutputParameters(ms, key, parameter, boundSql);</div><div class="line">        &#125; else &#123; </div><div class="line">            //从数据库查</div><div class="line">            list = queryFromDatabase(ms, parameter, rowBounds, resultHandler, key, boundSql); </div><div class="line">        &#125;</div><div class="line">    &#125; </div><div class="line">    finally &#123; </div><div class="line">        queryStack--; //清空堆栈 </div><div class="line">    &#125; </div><div class="line">    if (queryStack == 0) &#123; </div><div class="line">        //延迟加载队列中所有元素</div><div class="line">        for (DeferredLoad deferredLoad : deferredLoads) &#123; </div><div class="line">            deferredLoad.load();</div><div class="line">        &#125; </div><div class="line">        deferredLoads.clear(); //清空延迟加载队列 </div><div class="line">        if (configuration.getLocalCacheScope() == LocalCacheScope.STATEMENT) &#123;</div><div class="line">            clearLocalCache();</div><div class="line">        &#125; </div><div class="line">    &#125;</div><div class="line">    return list; </div><div class="line">&#125;</div><div class="line"></div><div class="line">复制代码</div></pre></td></tr></table></figure>
+<p>localCache 缓存的key 为CacheKey对象 CacheKey：<strong>statementId</strong> + <strong>rowBounds</strong> + 传递给<strong>JDBC的SQL</strong> + 传递给JDBC的<strong>参数值</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line">public CacheKey createCacheKey(MappedStatement ms, Object parameterObject, RowBounds rowBounds, BoundSql boundSql) &#123;</div><div class="line">    if (closed) &#123;</div><div class="line">      throw new ExecutorException(&quot;Executor was closed.&quot;);</div><div class="line">    &#125;</div><div class="line">    CacheKey cacheKey = new CacheKey();</div><div class="line">    cacheKey.update(ms.getId());</div><div class="line">    cacheKey.update(rowBounds.getOffset());</div><div class="line">    cacheKey.update(rowBounds.getLimit());</div><div class="line">    cacheKey.update(boundSql.getSql());</div><div class="line">    List&lt;ParameterMapping&gt; parameterMappings = boundSql.getParameterMappings();</div><div class="line">    TypeHandlerRegistry typeHandlerRegistry = ms.getConfiguration().getTypeHandlerRegistry();</div><div class="line">    // mimic DefaultParameterHandler logic</div><div class="line">    for (ParameterMapping parameterMapping : parameterMappings) &#123;</div><div class="line">      if (parameterMapping.getMode() != ParameterMode.OUT) &#123;</div><div class="line">        Object value;</div><div class="line">        String propertyName = parameterMapping.getProperty();</div><div class="line">        if (boundSql.hasAdditionalParameter(propertyName)) &#123;</div><div class="line">          value = boundSql.getAdditionalParameter(propertyName);</div><div class="line">        &#125; else if (parameterObject == null) &#123;</div><div class="line">          value = null;</div><div class="line">        &#125; else if (typeHandlerRegistry.hasTypeHandler(parameterObject.getClass())) &#123;</div><div class="line">          value = parameterObject;</div><div class="line">        &#125; else &#123;</div><div class="line">          MetaObject metaObject = configuration.newMetaObject(parameterObject);</div><div class="line">          value = metaObject.getValue(propertyName);</div><div class="line">        &#125;</div><div class="line">        cacheKey.update(value);</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">    if (configuration.getEnvironment() != null) &#123;</div><div class="line">      // issue #176</div><div class="line">      cacheKey.update(configuration.getEnvironment().getId());</div><div class="line">    &#125;</div><div class="line">    return cacheKey;</div><div class="line">  &#125;</div><div class="line">复制代码</div></pre></td></tr></table></figure>
+<h3 id="一级缓存生命周期总结"><a href="#一级缓存生命周期总结" class="headerlink" title="一级缓存生命周期总结"></a>一级缓存生命周期总结</h3><ul>
+<li>MyBatis在开启一个会话时，会创建一个新的SqlSession对象，SqlSession对象中会有一个新的Executor对象，Executor对象中持有一个新的PerpetualCache对象；当会话结束时，SqlSession对象及其内部的Executor对象还有PerpetualCache对象也一并释放掉。</li>
+<li>如果SqlSession调用了close()方法，会释放掉一级缓存PerpetualCache对象，一级缓存将不可用；</li>
+<li>如果SqlSession调用了clearCache()，会清空PerpetualCache对象中的数据，但是该对象仍可使用；</li>
+<li>SqlSession中执行了任何一个update操作(update()、delete()、insert())，都会清空PerpetualCache对象的数据，但是该对象可以继续使用；</li>
+</ul>
+<h2 id="二级缓存"><a href="#二级缓存" class="headerlink" title="二级缓存"></a>二级缓存</h2><ul>
+<li>MyBatis的二级缓存是<strong>mapper范围</strong>级别的</li>
+<li><strong>SqlSession关闭</strong>后才会将数据写到二级缓存区域</li>
+<li>增删改操作，无论是否进行提交commit()，均会清空一级、二级缓存</li>
+<li>二级缓存是<strong>默认开启</strong>的。</li>
+</ul>
+<p><img src="https://upload-images.jianshu.io/upload_images/1672313-cec131a660883b71.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>如果想要设置增删改操作的时候不清空二级缓存的话，可以在其insert或delete或update中添加属性flushCache=”false”，默认为 true。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;delete id=&quot;deleteStudent&quot; flushCache=&quot;false&quot;&gt;</div><div class="line">    DELETE FROM t_student where id=#&#123;id&#125;</div><div class="line">&lt;/delete&gt;</div><div class="line">复制代码</div></pre></td></tr></table></figure>
+<h3 id="开启二级缓存"><a href="#开启二级缓存" class="headerlink" title="开启二级缓存"></a>开启二级缓存</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">// mybatis-config.xml 中配置</div><div class="line">&lt;settings&gt;</div><div class="line">    &lt;setting name=&quot;localCacheScope&quot; value=&quot;SESSION&quot;/&gt;</div><div class="line">    默认值为 true。即二级缓存默认是开启的</div><div class="line">    &lt;setting name=&quot;cacheEnabled&quot; value=&quot;true&quot;/&gt;</div><div class="line">&lt;/settings&gt;</div><div class="line"></div><div class="line">// 具体mapper.xml 中配置</div><div class="line">&lt;mapper namespace=&quot;cn.itcast.mybatis.mapper.UserMapper&quot;&gt;</div><div class="line"></div><div class="line">	&lt;!-- 开启本mapper的namespace下的二级缓存</div><div class="line">	type：指定cache接口的实现类的类型，mybatis默认使用PerpetualCache</div><div class="line">	要和ehcache整合，需要配置type为ehcache实现cache接口的类型--&gt;</div><div class="line"></div><div class="line">	&lt;cache /&gt;</div><div class="line"></div><div class="line">    &lt;!-- 下面的一些SQL语句暂时略 --&gt;</div><div class="line">&lt;/mapper&gt;</div><div class="line">复制代码</div></pre></td></tr></table></figure>
+<h3 id="二级缓存的实现"><a href="#二级缓存的实现" class="headerlink" title="二级缓存的实现"></a>二级缓存的实现</h3><ul>
+<li>创建执行器 Configuration.newExecutor()方法</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">public Executor newExecutor(Transaction transaction, ExecutorType executorType) &#123;</div><div class="line">    executorType = executorType == null ? defaultExecutorType : executorType;</div><div class="line">    //确保ExecutorType不为空(defaultExecutorType有可能为空)</div><div class="line">    executorType = executorType == null ? ExecutorType.SIMPLE : executorType;</div><div class="line">    Executor executor;</div><div class="line">    if (ExecutorType.BATCH == executorType) &#123;</div><div class="line">      executor = new BatchExecutor(this, transaction);</div><div class="line">    &#125; else if (ExecutorType.REUSE == executorType) &#123;</div><div class="line">      executor = new ReuseExecutor(this, transaction);</div><div class="line">    &#125; else &#123;</div><div class="line">      executor = new SimpleExecutor(this, transaction);</div><div class="line">    &#125;</div><div class="line">    //重点在这里，如果启用二级缓存，返回Executor的Cache包装类对象</div><div class="line">    if (cacheEnabled) &#123;</div><div class="line">      executor = new CachingExecutor(executor);</div><div class="line">    &#125;</div><div class="line">    executor = (Executor) interceptorChain.pluginAll(executor);</div><div class="line">    return executor;</div><div class="line">  &#125;</div><div class="line">复制代码</div></pre></td></tr></table></figure>
+<ul>
+<li>CachingExecutor</li>
+</ul>
+<p>静态代理模式。在CachingExecutor的所有操作都是通过调用内部的delegate对象执行的。缓存只应用于查询</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line">public class CachingExecutor implements Executor &#123;</div><div class="line"></div><div class="line">  private Executor delegate;</div><div class="line">  public CachingExecutor(Executor delegate) &#123;</div><div class="line">    this.delegate = delegate;</div><div class="line">    delegate.setExecutorWrapper(this);</div><div class="line">  &#125;</div><div class="line">   @Override</div><div class="line">  public int update(MappedStatement ms, Object parameterObject) throws SQLException &#123;</div><div class="line">    //是否需要更缓存</div><div class="line">    flushCacheIfRequired(ms);</div><div class="line">    return delegate.update(ms, parameterObject);</div><div class="line">  &#125;</div><div class="line">   @Override</div><div class="line">  public &lt;E&gt; List&lt;E&gt; query(MappedStatement ms, Object parameterObject, RowBounds rowBounds, ResultHandler resultHandler, CacheKey key, BoundSql boundSql)</div><div class="line">      throws SQLException &#123;</div><div class="line">    Cache cache = ms.getCache();</div><div class="line">    if (cache != null) &#123;</div><div class="line">      flushCacheIfRequired(ms);</div><div class="line">      if (ms.isUseCache() &amp;&amp; resultHandler == null) &#123;</div><div class="line">        ensureNoOutParams(ms, parameterObject, boundSql);</div><div class="line">        @SuppressWarnings(&quot;unchecked&quot;)</div><div class="line">        //从缓存中获取数据</div><div class="line">        List&lt;E&gt; list = (List&lt;E&gt;) tcm.getObject(cache, key);</div><div class="line">        if (list == null) &#123;</div><div class="line">          list = delegate.&lt;E&gt; query(ms, parameterObject, rowBounds, resultHandler, key, boundSql);</div><div class="line">          // 结果保存到缓存中</div><div class="line">          tcm.putObject(cache, key, list); // issue #578 and #116</div><div class="line">        &#125;</div><div class="line">        return list;</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">    return delegate.&lt;E&gt; query(ms, parameterObject, rowBounds, resultHandler, key, boundSql);</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line">复制代码</div></pre></td></tr></table></figure>
+<h3 id="不同SqlSession，同一Mapper"><a href="#不同SqlSession，同一Mapper" class="headerlink" title="不同SqlSession，同一Mapper"></a>不同SqlSession，同一Mapper</h3><ul>
+<li>SqlSession关闭后才会将数据写到二级缓存区域</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">@Test</div><div class="line">public void testCacheWithCommitOrClose() throws Exception &#123;</div><div class="line">    SqlSession sqlSession1 = factory.openSession(true); // 自动提交事务</div><div class="line">    SqlSession sqlSession2 = factory.openSession(true); // 自动提交事务</div><div class="line"></div><div class="line">    StudentMapper studentMapper = sqlSession1.getMapper(StudentMapper.class);</div><div class="line">    StudentMapper studentMapper2 = sqlSession2.getMapper(StudentMapper.class);</div><div class="line"></div><div class="line">    System.out.println(&quot;studentMapper读取数据: &quot; + studentMapper.getStudentById(1));</div><div class="line">    //sqlSession1关闭后，会将sqlsession1中的数据写到二级缓存区域</div><div class="line">    //不关闭的话不会写入二级缓存</div><div class="line">    sqlSession1.close();</div><div class="line"></div><div class="line">    System.out.println(&quot;studentMapper2读取数据: &quot; + studentMapper2.getStudentById(1));</div><div class="line">&#125;</div><div class="line">复制代码</div></pre></td></tr></table></figure>
+<p><img src="https://upload-images.jianshu.io/upload_images/1672313-2d875560c99f6f1a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<ul>
+<li>sqlSession未关闭，不会将数据写到二级缓存区域</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">@Test</div><div class="line">public void testCacheWithoutCommitOrClose() throws Exception &#123;</div><div class="line">    SqlSession sqlSession1 = factory.openSession(true); // 自动提交事务</div><div class="line">    SqlSession sqlSession2 = factory.openSession(true); // 自动提交事务</div><div class="line"></div><div class="line">    StudentMapper studentMapper = sqlSession1.getMapper(StudentMapper.class);</div><div class="line">    StudentMapper studentMapper2 = sqlSession2.getMapper(StudentMapper.class);</div><div class="line"></div><div class="line">    System.out.println(&quot;studentMapper读取数据: &quot; + studentMapper.getStudentById(1));</div><div class="line">    //sqlSession未关闭，不会将数据写到二级缓存区域，会从数据库中查询</div><div class="line">    System.out.println(&quot;studentMapper2读取数据: &quot; + studentMapper2.getStudentById(1));</div><div class="line">&#125;</div><div class="line">复制代码</div></pre></td></tr></table></figure>
+<p><img src="https://upload-images.jianshu.io/upload_images/1672313-e2f4ac85336dbd33.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<h3 id="二级缓存关闭"><a href="#二级缓存关闭" class="headerlink" title="二级缓存关闭"></a>二级缓存关闭</h3><ul>
+<li>全局关闭</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&lt;setting name=&quot;cacheEnabled&quot; value=&quot;false&quot;/&gt;</div><div class="line">复制代码</div></pre></td></tr></table></figure>
+<ul>
+<li>局部关闭 局部关闭是只关闭<strong>某个select</strong>查询的二级缓存，在select标签中将属性<strong>useCache设置为false</strong>，那么就会关闭该select查询的二级缓存。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;select id=&quot;selectStudentById&quot; useCache=&quot;false&quot; resultMap=&quot;studentMapper&quot;&gt;</div><div class="line">    SELECT id,name,age,score,password FROM t_student where id=#&#123;id&#125;</div><div class="line">&lt;/select&gt;</div><div class="line">复制代码</div></pre></td></tr></table></figure>
+<h3 id="使用注意事项"><a href="#使用注意事项" class="headerlink" title="使用注意事项"></a>使用注意事项</h3><ul>
+<li><p>在一个命名空间下使用二级缓存 二级缓存对于不同的命名空间namespace的数据是互不干扰的，倘若多个namespace中对一个表进行操作的话，就会导致这不同的namespace中的数据不一致的情况。</p>
+</li>
+<li><p>在单表上使用二级缓存 在做关联关系查询时，就会发生多表的操作，此时有可能这些表存在于多个namespace中，这就会出现上一条内容出现的问题了。</p>
+</li>
+<li><p>查询多于修改时使用二级缓存 在查询操作远远多于增删改操作的情况下可以使用二级缓存。因为任何增删改操作都将刷新二级缓存，对二级缓存的频繁刷新将降低系统性能。</p>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://andrman.cn/2017/08/20/Mybatis学习笔记(二)XML配置/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Andrman">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Andrman's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/08/20/Mybatis学习笔记(二)XML配置/" itemprop="url">
+                  Mybatis学习笔记(二)XML配置
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-20T00:00:00+08:00">
+                2017-08-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android基础/" itemprop="url" rel="index">
+                    <span itemprop="name">Android基础</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/08/20/Mybatis学习笔记(二)XML配置/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/08/20/Mybatis学习笔记(二)XML配置/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2017/08/20/Mybatis学习笔记(二)XML配置/" class="leancloud_visitors" data-flag-title="Mybatis学习笔记(二)XML配置">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>####Environment</p>
+<p>默认的环境 ID（比如:default=”development”<br>每个 environment 元素定义的环境 ID（比如:id=”development”<br>事务管理器的配置（比如:type=”JDBC”<br>数据源的配置（比如:type=”POOLED”<br>每个数据库对应一个 SqlSessionFactory 实例,每个 SqlSessionFactory 实例只能选择Environment<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">常用配置</div><div class="line">&lt;!-- 设置一个默认的连接环境信息 --&gt;</div><div class="line">&lt;environments default=&quot;development&quot;&gt;</div><div class="line">    &lt;environment id=&quot;development&quot;&gt;</div><div class="line">        &lt;!-- mybatis使用jdbc事务管理方式 --&gt;</div><div class="line">        &lt;transactionManager type=&quot;JDBC&quot;/&gt;</div><div class="line">        &lt;!-- mybatis使用连接池方式来获取连接 --&gt;</div><div class="line">        &lt;dataSource type=&quot;POOLED&quot;&gt;</div><div class="line">            &lt;!-- 配置与数据库交互的4个必要属性 --&gt;</div><div class="line">            &lt;property name=&quot;driver&quot; value=&quot;$&#123;jdbc.driver&#125;&quot;/&gt;</div><div class="line">            &lt;property name=&quot;url&quot; value=&quot;$&#123;jdbc.url&#125;&quot;/&gt;</div><div class="line">            &lt;property name=&quot;username&quot; value=&quot;$&#123;jdbc.username&#125;&quot;/&gt;</div><div class="line">            &lt;property name=&quot;password&quot; value=&quot;$&#123;jdbc.password&#125;&quot;/&gt;</div><div class="line">        &lt;/dataSource&gt;</div><div class="line">    &lt;/environment&gt;</div><div class="line">&lt;/environments&gt;</div><div class="line"></div><div class="line">public final class Environment &#123;</div><div class="line">  private final String id;</div><div class="line">  private final TransactionFactory transactionFactory;</div><div class="line">  private final DataSource dataSource;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>####事务管理器（TransactionManager）</p>
+<p>JDBC – 这个配置就是直接使用了 JDBC 的提交和回滚设置，它依赖于从数据源得到的连接来管理事务作用域。<br>MANAGED – 这个配置几乎没做什么。它从来不提交或回滚一个连接，而是让容器来管理事务的整个生命周期<br>Spring 模块会使用自带的管理器来覆盖前面的配置。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">&lt;transactionManager type=&quot;MANAGED&quot;&gt;</div><div class="line">    &lt;property name=&quot;closeConnection&quot; value=&quot;false&quot;/&gt;</div><div class="line">&lt;/transactionManager&gt;</div><div class="line"></div><div class="line">public interface TransactionFactory &#123;</div><div class="line">    void setProperties(Properties props);  </div><div class="line">    Transaction newTransaction(Connection conn);</div><div class="line">    Transaction newTransaction(DataSource dataSource, TransactionIsolationLevel level, boolean autoCommit);  </div><div class="line">&#125;</div><div class="line"></div><div class="line">public interface Transaction &#123;</div><div class="line">    Connection getConnection() throws SQLException;</div><div class="line">    void commit() throws SQLException;</div><div class="line">     void rollback() throws SQLException;</div><div class="line">     void close() throws SQLException;</div><div class="line">     Integer getTimeout() throws SQLException;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>####数据源（DataSource）</p>
+<p>UNPOOLED – 这个数据源的实现只是每次被请求时打开和关闭连接<br>POOLED – 这种数据源的实现利用“池”的概念将 JDBC 连接对象组织起来，避免了创建新的连接实例时所必需的初始化和认证时间。 这是一种使得并发 Web 应用快速响应请求的流行处理方式。<br>JNDI – 这个数据源的实现是为了能在如 EJB 或应用服务器这类容器中使用，容器可以集中或在外部配置数据源，然后放置一个 JNDI 上下文的引用</p>
+<p>#####Pooled相关配置</p>
+<pre><code>driver – 这是 JDBC 驱动的 Java 类的完全限定名
+url – 这是数据库的 JDBC URL 地址。
+username – 登录数据库的用户名。
+password – 登录数据库的密码。
+defaultTransactionIsolationLevel – 默认的连接事务隔离级别。
+
+poolMaximumActiveConnections – 在任意时间可以存在的活动（也就是正在使用）连接数量，默认值：10
+poolMaximumIdleConnections – 任意时间可能存在的空闲连接数。
+poolMaximumCheckoutTime – 在被强制返回之前，池中连接被检出（checked out）时间，默认值：20000 毫秒（即 20 秒）
+poolTimeToWait – 这是一个底层设置，如果获取连接花费了相当长的时间，连接池会打印状态日志并重新尝试获取一个连接（避免在误配置的情况下一直安静的失败），默认值：20000 毫秒（即 20 秒）。
+poolMaximumLocalBadConnectionTolerance – 这是一个关于坏连接容忍度的底层设置， 作用于每一个尝试从缓存池获取连接的线程. 如果这个线程获取到的是一个坏的连接，那么这个数据源允许这个线程尝试重新获取一个新的连接，但是这个重新尝试的次数不应该超过 poolMaximumIdleConnections 与 poolMaximumLocalBadConnectionTolerance 之和。 默认值：3 (新增于 3.4.5)
+poolPingQuery – 发送到数据库的侦测查询，用来检验连接是否正常工作并准备接受请求。默认是“NO PING QUERY SET”，这会导致多数数据库驱动失败时带有一个恰当的错误消息。
+poolPingEnabled – 是否启用侦测查询。若开启，需要设置 poolPingQuery 属性为一个可执行的 SQL 语句（最好是一个速度非常快的 SQL 语句），默认值：false。
+poolPingConnectionsNotUsedFor – 配置 poolPingQuery 的频率。可以被设置为和数据库连接超时时间一样，来避免不必要的侦测，默认值：0（即所有连接每一时刻都被侦测 — 当然仅当 poolPingEnabled 为 true 时适用）。
+</code></pre><p>####插件（plugins）<br>MyBatis 允许你在已映射语句执行过程中的某一点进行拦截调用。默认情况下，MyBatis 允许使用插件来拦截的方法调用包括：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">Executor (update, query, flushStatements, commit, rollback, getTransaction, close, isClosed)</div><div class="line">ParameterHandler (getParameterObject, setParameters)</div><div class="line">ResultSetHandler (handleResultSets, handleOutputParameters)</div><div class="line">StatementHandler (prepare, parameterize, batch, update, query)</div></pre></td></tr></table></figure></p>
+<p>#####自定义插件<br>实现 Interceptor 接口，并指定想要拦截的方法签名<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">// ExamplePlugin.java</div><div class="line">// 插件将会拦截在 Executor 实例中所有的 “update” 方法调用，</div><div class="line">// 这里的 Executor 是负责执行低层映射语句的内部对象。</div><div class="line">@Intercepts(&#123;@Signature(</div><div class="line">  type= Executor.class,</div><div class="line">  method = &quot;update&quot;,</div><div class="line">  args = &#123;MappedStatement.class,Object.class&#125;)&#125;)</div><div class="line">public class ExamplePlugin implements Interceptor &#123;</div><div class="line">  public Object intercept(Invocation invocation) throws Throwable &#123;</div><div class="line">    return invocation.proceed();</div><div class="line">  &#125;</div><div class="line">  public Object plugin(Object target) &#123;</div><div class="line">    return Plugin.wrap(target, this);</div><div class="line">  &#125;</div><div class="line">  public void setProperties(Properties properties) &#123;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">&lt;!-- mybatis-config.xml --&gt;</div><div class="line">&lt;plugins&gt;</div><div class="line">  &lt;plugin interceptor=&quot;org.mybatis.example.ExamplePlugin&quot;&gt;</div><div class="line">    &lt;property name=&quot;someProperty&quot; value=&quot;100&quot;/&gt;</div><div class="line">  &lt;/plugin&gt;</div><div class="line">&lt;/plugins&gt;</div></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://andrman.cn/2017/08/14/Mybatis学习笔记(一)初始Mybatis/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Andrman">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Andrman's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/08/14/Mybatis学习笔记(一)初始Mybatis/" itemprop="url">
+                  Mybatis学习笔记(一)初始Mybatis
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-14T00:00:00+08:00">
+                2017-08-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JAVA/" itemprop="url" rel="index">
+                    <span itemprop="name">JAVA</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/08/14/Mybatis学习笔记(一)初始Mybatis/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/08/14/Mybatis学习笔记(一)初始Mybatis/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2017/08/14/Mybatis学习笔记(一)初始Mybatis/" class="leancloud_visitors" data-flag-title="Mybatis学习笔记(一)初始Mybatis">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="MyBatis基本概念"><a href="#MyBatis基本概念" class="headerlink" title="MyBatis基本概念"></a>MyBatis基本概念</h2><ul>
+<li>MyBatis 是一款优秀的<strong>持久层框架</strong>，它支持<strong>定制化 SQL</strong>、<strong>存储过程</strong>以及<strong>高级映射</strong>。</li>
+<li>MyBatis 避免了几乎所有的 <strong>JDBC 代码</strong>和<strong>手动设置参数</strong>以及<strong>获取结果集</strong>。</li>
+<li>MyBatis 可以使用简单的 <strong>XML 或注解</strong>来配置和映射原生信息，将接口和 Java 的 POJOs(Plain Old Java Objects,普通的 Java对象)映射成数据库中的记录。</li>
+</ul>
+<h2 id="JDBC"><a href="#JDBC" class="headerlink" title="JDBC"></a>JDBC</h2><ul>
+<li>JDBC是Java提供的一个<strong>操作数据库</strong>的API</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">public class DbUtil &#123;</div><div class="line"></div><div class="line">    public static final String URL = &quot;jdbc:mysql://localhost:3306/imooc&quot;;</div><div class="line">    public static final String USER = &quot;liulx&quot;;</div><div class="line">    public static final String PASSWORD = &quot;123456&quot;;</div><div class="line"></div><div class="line">    public static void main(String[] args) throws Exception &#123;</div><div class="line">        //1\. 加载驱动程序</div><div class="line">        Class.forName(&quot;com.mysql.jdbc.Driver&quot;);</div><div class="line">        //2\. 获得数据库连接</div><div class="line">        Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);</div><div class="line">        //3\. 创建statement</div><div class="line">        Statement stmt = conn.createStatement();</div><div class="line">        //4\. 执行SQL语句</div><div class="line">        ResultSet rs = stmt.executeQuery(&quot;SELECT user_name, age FROM imooc_goddess&quot;);</div><div class="line">        //5\. 处理返回结果</div><div class="line">        while(rs.next())&#123;</div><div class="line">            System.out.println(rs.getString(&quot;user_name&quot;)+&quot; 年龄：&quot;+rs.getInt(&quot;age&quot;));</div><div class="line">        &#125;</div><div class="line">        //6\. 关闭资源</div><div class="line">        rs.close();</div><div class="line">        stmt.close()</div><div class="line">        conn.close();</div><div class="line"></div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">复制代码</div></pre></td></tr></table></figure>
+<h2 id="Mybatis-主要组件"><a href="#Mybatis-主要组件" class="headerlink" title="Mybatis 主要组件"></a>Mybatis 主要组件</h2><h3 id="SqlSessionFactoryBuilder"><a href="#SqlSessionFactoryBuilder" class="headerlink" title="SqlSessionFactoryBuilder"></a>SqlSessionFactoryBuilder</h3><ul>
+<li>SqlSessionFactoryBuilder 则可以从 XML 配置文件或一个预先定制的 Configuration 的实例构建出 SqlSessionFactory 的实例。</li>
+<li>可配置多个环境以达到多数据源的效果</li>
+<li>最佳作用域是方法作用域，一旦创建了 SqlSessionFactory，就不再需要它</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line"> public SqlSessionFactory build(Reader reader, String environment, Properties properties) &#123;</div><div class="line">    try &#123;</div><div class="line">       XMLConfigBuilder parser = new XMLConfigBuilder(reader, environment, properties);</div><div class="line">       return build(parser.parse());</div><div class="line">    &#125; catch (Exception e) &#123;</div><div class="line">       throw ExceptionFactory.wrapException(&quot;Error building SqlSession.&quot;, e);</div><div class="line">    &#125; finally &#123;</div><div class="line">       ErrorContext.instance().reset();</div><div class="line">       try &#123;</div><div class="line">         reader.close();</div><div class="line">       &#125;  catch (IOException e) &#123;</div><div class="line">         // Intentionally ignore. Prefer previous error.</div><div class="line">       &#125;</div><div class="line">    &#125;</div><div class="line"> &#125;</div><div class="line"></div><div class="line">public SqlSessionFactory build(InputStream inputStream, String environment, Properties properties) &#123;</div><div class="line">    try &#123;</div><div class="line">       XMLConfigBuilder parser = new XMLConfigBuilder(inputStream, environment, properties);</div><div class="line">       return build(parser.parse());</div><div class="line">    &#125; catch (Exception e) &#123;</div><div class="line">       throw ExceptionFactory.wrapException(&quot;Error building SqlSession.&quot;, e);</div><div class="line">    &#125; finally &#123;</div><div class="line">       ErrorContext.instance().reset();</div><div class="line">       try &#123;</div><div class="line">          inputStream.close();</div><div class="line">       &#125; catch (IOException e) &#123;</div><div class="line">         // Intentionally ignore. Prefer previous error.</div><div class="line">       &#125;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  public SqlSessionFactory build(Configuration config) &#123;</div><div class="line">    return new DefaultSqlSessionFactory(config);</div><div class="line">  &#125;</div><div class="line"></div><div class="line">    String resource = &quot;mybatis-cfg.xml&quot;;</div><div class="line">    //读取mybatis-config.xml文件</div><div class="line">    InputStream inputStream = Resources.getResourceAsStream(resource);</div><div class="line">    //初始化mybatis,创建SqlSessionFactory类的实例</div><div class="line">    SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream, &quot;development&quot;);</div><div class="line"></div><div class="line">复制代码</div></pre></td></tr></table></figure>
+<h3 id="SqlSessionFactory"><a href="#SqlSessionFactory" class="headerlink" title="SqlSessionFactory"></a>SqlSessionFactory</h3><ul>
+<li>用于创建 SqlSession</li>
+<li>拥有 Configuration</li>
+<li>一个数据库对应一个SqlSessionFactory</li>
+<li>最佳作用域是应用作用域，单例模式或者静态单例模式。<br><img src="https://upload-images.jianshu.io/upload_images/1672313-ecb1a2ce61e965e7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">public interface SqlSessionFactory &#123;</div><div class="line">    SqlSession openSession(ExecutorType execType, boolean autoCommit);</div><div class="line">    SqlSession openSession(ExecutorType execType, TransactionIsolationLevel level);</div><div class="line">    SqlSession openSession(ExecutorType execType, Connection connection);</div><div class="line">    Configuration getConfiguration();</div><div class="line">&#125;</div><div class="line">复制代码</div></pre></td></tr></table></figure>
+<h3 id="SqlSession"><a href="#SqlSession" class="headerlink" title="SqlSession"></a>SqlSession</h3><ul>
+<li>封装一系列数据库操作的方法</li>
+<li>最佳的作用域是请求或方法作用域</li>
+<li>每个线程都应该有它自己的 SqlSession 实例</li>
+<li>SqlSession 放在一个和 HTTP 请求对象相似的作用域</li>
+<li>拥有 Connection、Configuration</li>
+<li>内部执行方法是excute、涉及缓存</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">public interface SqlSession extends Closeable &#123;</div><div class="line"></div><div class="line">    &lt;T&gt; T selectOne(String statement, Object parameter);</div><div class="line">    &lt;E&gt; List&lt;E&gt; selectList(String statement, Object parameter);</div><div class="line">    &lt;K, V&gt; Map&lt;K, V&gt; selectMap(String statement, Object parameter, String mapKey);</div><div class="line">    int insert(String statement, Object parameter);</div><div class="line">    int update(String statement, Object parameter);</div><div class="line">    int delete(String statement, Object parameter);</div><div class="line">    void commit(boolean force);</div><div class="line">    void rollback(boolean force);</div><div class="line">    List&lt;BatchResult&gt; flushStatements();</div><div class="line">    &lt;T&gt; T getMapper(Class&lt;T&gt; type);</div><div class="line"></div><div class="line">    void clearCache();</div><div class="line">    Configuration getConfiguration();</div><div class="line">    Connection getConnection();</div><div class="line"></div><div class="line">复制代码</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;</div><div class="line">&lt;!DOCTYPE mapper</div><div class="line">  PUBLIC &quot;-//mybatis.org//DTD Mapper 3.0//EN&quot;</div><div class="line">  &quot;http://mybatis.org/dtd/mybatis-3-mapper.dtd&quot;&gt;</div><div class="line">&lt;mapper namespace=&quot;org.mybatis.example.BlogMapper&quot;&gt;</div><div class="line">  &lt;select id=&quot;selectBlog&quot; resultType=&quot;Blog&quot;&gt;</div><div class="line">    select * from Blog where id = #&#123;id&#125;</div><div class="line">  &lt;/select&gt;</div><div class="line">&lt;/mapper&gt;</div><div class="line"></div><div class="line">//完全限定名调用</div><div class="line">Blog blog = (Blog) session</div><div class="line">        .selectOne(&quot;org.mybatis.example.BlogMapper.selectBlog&quot;, 101);</div><div class="line"></div><div class="line">//完全限定名可以直接映射到在命名空间中同名的 Mapper 类，并将已映射的 select 语句中的名字、参数和返回类型匹配成方法</div><div class="line">BlogMapper mapper = session.getMapper(BlogMapper.class);</div><div class="line">Blog blog = mapper.selectBlog(101);</div><div class="line">// 注解方式，适用简单SQL</div><div class="line">package org.mybatis.example;</div><div class="line">public interface BlogMapper &#123;</div><div class="line">  @Select(&quot;SELECT * FROM blog WHERE id = #&#123;id&#125;&quot;)</div><div class="line">  Blog selectBlog(int id);</div><div class="line">&#125;</div><div class="line">复制代码</div></pre></td></tr></table></figure>
+<h3 id="Executor"><a href="#Executor" class="headerlink" title="Executor"></a>Executor</h3><ul>
+<li>SqlSession向用户提供操作数据库的方法，但和数据库操作有关的职责都会委托给Executor</li>
+<li>把具体的操作委托给子类进行执行</li>
+</ul>
+<p><img src="https://upload-images.jianshu.io/upload_images/1672313-ce8566d8c50a1ba9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<h3 id="Cache"><a href="#Cache" class="headerlink" title="Cache"></a>Cache</h3><ul>
+<li>提供了和缓存相关的最基本的操作</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">public interface Cache &#123;</div><div class="line">  String getId();</div><div class="line">  void putObject(Object key, Object value);</div><div class="line">  Object getObject(Object key);</div><div class="line">  Object removeObject(Object key);</div><div class="line">&#125;</div><div class="line">复制代码</div></pre></td></tr></table></figure>
+<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p><img src="https://upload-images.jianshu.io/upload_images/1672313-affc88f0bcbde630.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://andrman.cn/2017/08/08/kotlin官方文档-3.2属性和字段/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -635,528 +1260,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://andrman.cn/2017/08/05/kotlin官方文档-2.4返回与跳转/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Andrman">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Andrman's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/08/05/kotlin官方文档-2.4返回与跳转/" itemprop="url">
-                  kotlin官方文档-2.4返回与跳转
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-05T05:26:00+08:00">
-                2017-08-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Kotlin/" itemprop="url" rel="index">
-                    <span itemprop="name">Kotlin</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/08/05/kotlin官方文档-2.4返回与跳转/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/08/05/kotlin官方文档-2.4返回与跳转/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2017/08/05/kotlin官方文档-2.4返回与跳转/" class="leancloud_visitors" data-flag-title="kotlin官方文档-2.4返回与跳转">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="返回与跳转"><a href="#返回与跳转" class="headerlink" title="返回与跳转"></a>返回与跳转</h2><p>Kotlin 有三种结构跳转表达式：</p>
-<blockquote>
-<p>– return 默认情况下从最近的闭合函数或者<a href="https://kotlinlang.org/docs/reference/lambdas.html#anonymous-functions" target="_blank" rel="external">匿名函数</a>返回。<br>– break 结束最近的闭合循环<br>– continue 跳到最近的闭合循环的下一次循环  </p>
-</blockquote>
-<p>上述表达式都可以作为更大的表达式的一部分：</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">val</span> s = person.name ?: <span class="keyword">return</span></div></pre></td></tr></table></figure>
-<p>这些表达式的类型是 <a href="http://kotlinlang.org/docs/reference/exceptions.html#the-nothing-type" target="_blank" rel="external">Nothing type</a></p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/08/05/kotlin官方文档-2.4返回与跳转/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://andrman.cn/2017/08/01/kotlin官方文档-2.3控制流程/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Andrman">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Andrman's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/08/01/kotlin官方文档-2.3控制流程/" itemprop="url">
-                  kotlin官方文档-2.3控制流程
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-01T11:25:16+08:00">
-                2017-08-01
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Kotlin/" itemprop="url" rel="index">
-                    <span itemprop="name">Kotlin</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/08/01/kotlin官方文档-2.3控制流程/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/08/01/kotlin官方文档-2.3控制流程/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2017/08/01/kotlin官方文档-2.3控制流程/" class="leancloud_visitors" data-flag-title="kotlin官方文档-2.3控制流程">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h3 id="控制流程有：if，when，for，while"><a href="#控制流程有：if，when，for，while" class="headerlink" title="控制流程有：if，when，for，while"></a>控制流程有：if，when，for，while</h3><h4 id="if-表达式"><a href="#if-表达式" class="headerlink" title="if 表达式"></a>if 表达式</h4><p>if是一个表达式，即它返回一个值，所以Kotlin没有三元运算符（condition？then：else），有if就够了。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">// 传统的使用</div><div class="line">var max = a </div><div class="line">if (a &lt; b) max = b</div><div class="line"></div><div class="line">// 有else </div><div class="line">var max: Int</div><div class="line">if (a &gt; b) &#123;</div><div class="line">    max = a</div><div class="line">&#125; else &#123;</div><div class="line">    max = b</div><div class="line">&#125;</div><div class="line"> </div><div class="line">// 作为表达式 </div><div class="line">val max = if (a &gt; b) a else b</div></pre></td></tr></table></figure>
-<p>if分支可以是块，最后一个表达式是块的值：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">val max = if (a &gt; b) &#123;</div><div class="line">    print(&quot;Choose a&quot;)</div><div class="line">    a</div><div class="line">&#125; else &#123;</div><div class="line">    print(&quot;Choose b&quot;)</div><div class="line">    b</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>如果将if用作表达式而不是语句（例如，返回值或将其分配给变量），则表达式需要具有else分支。</p>
-<p>查看if的<a href="http://kotlinlang.org/docs/reference/grammar.html#if" target="_blank" rel="external">语法</a></p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/08/01/kotlin官方文档-2.3控制流程/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://andrman.cn/2017/08/01/kotlin官方文档-2.1基础/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Andrman">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Andrman's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/08/01/kotlin官方文档-2.1基础/" itemprop="url">
-                  kotlin官方文档-2.1基础
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-01T11:22:13+08:00">
-                2017-08-01
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Kotlin/" itemprop="url" rel="index">
-                    <span itemprop="name">Kotlin</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/08/01/kotlin官方文档-2.1基础/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/08/01/kotlin官方文档-2.1基础/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2017/08/01/kotlin官方文档-2.1基础/" class="leancloud_visitors" data-flag-title="kotlin官方文档-2.1基础">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="基本类型-Basic-Types"><a href="#基本类型-Basic-Types" class="headerlink" title="基本类型(Basic Types)"></a>基本类型(Basic Types)</h2><p>在kotlin中，所有变量的成员方法和属性都是一个对象，在这个意义上，我们可以调用任何变量上的成员函数和属性。有些类型是内置的。<br>因为他们的实现是优化过的，但对用户来说它们就像普通的类一样。在这节中，我们会介绍大多数的类型：数值，字符，布尔，以及数组。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/08/01/kotlin官方文档-2.1基础/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1201,7 +1309,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-count">22</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
