@@ -87,21 +87,21 @@
 
 
 
-<meta name="description" content="缓存查询缓存主要是为了提高查询访问速度，即当用户执行一次查询后，会将该数据结果放到缓存中，当下次再执行此查询时就不会访问数据库了而是直接从缓存中获取该数据。 如果在缓存中找到了数据那叫做命中。 一级缓存 MyBatis的一级查询缓存（也叫作本地缓存）是基于org.apache.ibatis.cache.impl.PerpetualCache 类的 HashMap本地缓存，其作用域是SqlSessi">
+<meta name="description" content="缓存查询缓存主要是为了提高查询访问速度，即当用户执行一次查询后，会将该数据结果放到缓存中，当下次再执行此查询时就不会访问数据库了而是直接从缓存中获取该数据。 如果在缓存中找到了数据那叫做命中。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Mybatis学习笔记(三) 缓存">
 <meta property="og:url" content="http://andrman.cn/2017/08/30/Mybatis学习笔记(三) 缓存/index.html">
 <meta property="og:site_name" content="Andrman&#39;s Blog">
-<meta property="og:description" content="缓存查询缓存主要是为了提高查询访问速度，即当用户执行一次查询后，会将该数据结果放到缓存中，当下次再执行此查询时就不会访问数据库了而是直接从缓存中获取该数据。 如果在缓存中找到了数据那叫做命中。 一级缓存 MyBatis的一级查询缓存（也叫作本地缓存）是基于org.apache.ibatis.cache.impl.PerpetualCache 类的 HashMap本地缓存，其作用域是SqlSessi">
+<meta property="og:description" content="缓存查询缓存主要是为了提高查询访问速度，即当用户执行一次查询后，会将该数据结果放到缓存中，当下次再执行此查询时就不会访问数据库了而是直接从缓存中获取该数据。 如果在缓存中找到了数据那叫做命中。">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1672313-62f62c0c3852ac3d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1672313-e33544863536a3c5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1672313-cec131a660883b71.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1672313-2d875560c99f6f1a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1672313-e2f4ac85336dbd33.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2018-09-15T13:09:06.029Z">
+<meta property="og:updated_time" content="2018-09-15T13:14:53.154Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Mybatis学习笔记(三) 缓存">
-<meta name="twitter:description" content="缓存查询缓存主要是为了提高查询访问速度，即当用户执行一次查询后，会将该数据结果放到缓存中，当下次再执行此查询时就不会访问数据库了而是直接从缓存中获取该数据。 如果在缓存中找到了数据那叫做命中。 一级缓存 MyBatis的一级查询缓存（也叫作本地缓存）是基于org.apache.ibatis.cache.impl.PerpetualCache 类的 HashMap本地缓存，其作用域是SqlSessi">
+<meta name="twitter:description" content="缓存查询缓存主要是为了提高查询访问速度，即当用户执行一次查询后，会将该数据结果放到缓存中，当下次再执行此查询时就不会访问数据库了而是直接从缓存中获取该数据。 如果在缓存中找到了数据那叫做命中。">
 <meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/1672313-62f62c0c3852ac3d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 
 
@@ -422,6 +422,7 @@
 
       
         <h2 id="缓存"><a href="#缓存" class="headerlink" title="缓存"></a>缓存</h2><p>查询缓存主要是为了提高查询访问速度，即当用户执行一次查询后，会将该数据结果放到缓存中，当下次再执行此查询时就不会访问数据库了而是直接从缓存中获取该数据。 如果在缓存中找到了数据那叫做命中。</p>
+<a id="more"></a>
 <h2 id="一级缓存"><a href="#一级缓存" class="headerlink" title="一级缓存"></a>一级缓存</h2><ul>
 <li>MyBatis的一级查询缓存（也叫作本地缓存）是基于org.apache.ibatis.cache.impl.PerpetualCache 类的 HashMap本地缓存，其<strong>作用域是SqlSession</strong></li>
 <li>在同一个SqlSession中两次执行相同的 sql 查询语句，第一次执行完毕后，会将查询结果写入到缓存中，第二次会从缓存中直接获取数据，而不再到数据库中进行查询，这样就减少了数据库的访问，从而提高查询效率。</li>

@@ -589,19 +589,18 @@
 
       
         
-          
-            <p>###窗口之间跳转<br>在日常开发的时候经常需要在多个窗口之间来回切换。</p>
+          <p>###窗口之间跳转<br>在日常开发的时候经常需要在多个窗口之间来回切换。</p>
 <blockquote>
 <p>mac快捷键为：alt+command+] 或者 alt+command+[<br>windows快捷键为：ctrl+alt+左方括号 或者 ctrl+alt+右方括号</p>
 </blockquote>
 <p>###给代码加标签<br>在开发中有一个功能会经常用到，就是标记某一行代码，一会再来看它。<br>之前我的做法是随手写个“111”“222”之类的，让IDEA报错，下次循着红色的报错就能找到刚才标记的代码，显得有些愚蠢。<br>其实，IDEA为我们提供了一个很好用的功能来解决这个痛点 - Bookmarks 。<br><img src="https://upload-images.jianshu.io/upload_images/1672313-95a77e42ad640310.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="book.png"><br>可以在navigate的bokmarks中选中toggle bookmark with mnemonic来标记需要标记的行，也可以使用快捷键”alt+f3”。<br>选中后的效果如下：<br><img src="https://upload-images.jianshu.io/upload_images/1672313-751113df68ba9f40.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="book2.png"><br>标记完以后无论你在哪里只要使用alt+你标记的数字，就可以快速定位到标记的地方。</p>
-<p>###Live Template<br>Live Template主要是为我们提供了一些快速输入的模板。<br>比如for循环，print等，我们只需要输入简短的字符，idea字段帮我们实现完整的代码。<br><img src="https://upload-images.jianshu.io/upload_images/1672313-1cf034a2f156274c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Live Template.png"><br>IDEA内置了一些很常用的模板，大家可以去看一下。也可以根据自己使用的习惯增加一些。<br><img src="https://upload-images.jianshu.io/upload_images/1672313-e99c71d00fc1afd6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="psc.png"><br>比如我这”psfi“的模板，只需要输入ps,如何选中psfi，按回车，就可以输出：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">public static final int</div></pre></td></tr></table></figure></p>
-<p>选择psc，就是带注释的，输入完注释，会自动跳转到String后面，输出如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line">   *</div><div class="line">   */</div><div class="line">   private String ;</div></pre></td></tr></table></figure></p>
-<p>###重构<br><img src="https://upload-images.jianshu.io/upload_images/1672313-122ab8d042e5ba0f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="user.png"><br>看了上面的代码有种想骂娘的感觉，abc是什么，bcd是什么，虽然没毛病，但是显然不规范，这个时候就需要吧代码重构一下，把入参abc改一下，可万一下面有很多地方使用了abc岂不蛋疼。<br>借助IDEA我们可以实现快速的重构。<br>快捷键为shift+F6，也可以在Refactor中找到：<br><img src="https://upload-images.jianshu.io/upload_images/1672313-5e6a22c5465740c0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="name.png"><br>这时候，修改参数，就会把下面使用到这个参数的地方全部一次性修改过来。</p>
-<p>#####还有一种情况是，有时候我们需要修改或增加方法的入参，如果有多个地方调用，一个一个的修改显示是不是明智之举。<br>在Refactor里还有一个方法就是Change Signature，只需要修改一次：<br><img src="https://upload-images.jianshu.io/upload_images/1672313-a57f0d760eab3aba.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="name2.png"></p>
-<p>###一个git的使用技巧<br>在代码编辑框的左边栏，也就是debug的地方，右键，选择“Annotate”，可以显示出git提交的记录。<br><img src="https://upload-images.jianshu.io/upload_images/1672313-d0e5f683178d5f1a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="git.png"><br>点击每一条记录，可以显示详细的提交信息。<br><img src="https://upload-images.jianshu.io/upload_images/1672313-86fbe446411dc681.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="git2.png"></p>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/06/12/IntelliJ IDEA神器使用技巧总结/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -763,8 +762,7 @@
 
       
         
-          
-            <h2 id="Git工作流程"><a href="#Git工作流程" class="headerlink" title="Git工作流程"></a>Git工作流程</h2><p>一般工作流程如下：</p>
+          <h2 id="Git工作流程"><a href="#Git工作流程" class="headerlink" title="Git工作流程"></a>Git工作流程</h2><p>一般工作流程如下：</p>
 <ul>
 <li>克隆 Git 资源作为工作目录。</li>
 <li>在克隆的资源上添加或修改文件。</li>
@@ -773,150 +771,13 @@
 <li>提交修改。</li>
 <li>在修改完成后，如果发现错误，可以撤回提交并再次修改并提交。</li>
 </ul>
-<p>##Git 工作区、暂存区和版本库</p>
-<ul>
-<li>工作区：就是你在电脑里能看到的目录。</li>
-<li>暂存区：一般存放在 “.git目录下”下的index文件（.git/index）中，所以我们把暂存区有时也叫作索引（index）。</li>
-<li>版本库：工作区有一个隐藏目录.git，这个不算工作区，而是Git的版本库。</li>
-</ul>
-<ul>
-<li><ul>
-<li>执行 “git add” 命令时，暂存区的目录树被更新，同时工作区修改（或新增）的文件内容被写入到对象库中的一个新的对象中，而该对象的ID被记录在暂存区的文件索引中。</li>
-<li>执行提交操作（git commit）时，暂存区的目录树写到版本库（对象库）中，master 分支会做相应的更新。</li>
-<li>执行 “git reset HEAD” 命令时，暂存区的目录树会被重写，被 master 分支指向的目录树所替换，但是工作区不受影响。</li>
-<li>执行 “git rm –cached <file style="box-sizing: border-box;">“ 命令时，会直接从暂存区删除文件，工作区则不做出改变。</file></li>
-<li>执行 “git checkout .” 或者 “git checkout – <file style="box-sizing: border-box;">“ 命令时，会用暂存区全部或指定的文件替换工作区的文件。这个操作很危险，会清除工作区中未添加到暂存区的改动。</file></li>
-<li>执行 “git checkout HEAD .” 或者 “git checkout HEAD <file style="box-sizing: border-box;">“ 命令时，会用 HEAD 指向的 master 分支中的全部或者部分文件替换暂存区和以及工作区中的文件。这个命令也是极具危险性的.</file></li>
-</ul>
-</li>
-</ul>
-<h2 id="Git命令"><a href="#Git命令" class="headerlink" title="Git命令"></a><a href="http://www.ronglexie.top/2018/c89fc486.html#Git%E5%91%BD%E4%BB%A4" title="Git命令" target="_blank" rel="external"></a>Git命令</h2><p><a href="https://git-scm.com/docs" target="_blank" rel="external">Git官方文档</a></p>
-<p><a href="http://www.runoob.com/git/git-basic-operations.html" target="_blank" rel="external">Git使用指南</a></p>
-<p><a href="http://blog.csdn.net/wh_19910525/article/details/7554489" target="_blank" rel="external">git rebase 和 git merge</a></p>
-<ol>
-<li>创建仓库：git init</li>
-<li>克隆远程代码：git clone -b &lt;分支名&gt; &lt;代码库地址&gt;</li>
-<li>添加到暂存区：git add <filename style="box-sizing: border-box;">或者git add -A(add全部修改)</filename></li>
-<li>提交到本地库：git commit -m “tag”</li>
-<li>提交到远程库：git push origin &lt;本地分支&gt;:&lt;远程分支&gt;</li>
-<li>连接远程服务器：git remote add origin &lt;远程服务器地址&gt;</li>
-<li>分支管理<ul>
-<li>新建分支：git branch &lt;分支名&gt; 或者 git checkout -b &lt;分支名&gt;</li>
-<li>切换分支：git checkout &lt;分支名&gt;</li>
-<li>删除本地分支：git branch -d(-D) &lt;分支名&gt;（-D：强制删除）</li>
-<li>删除远程分支：git push origin –delete &lt;分支名&gt; 或者 git push origin :&lt;分支名&gt;（推送一个空分支）</li>
-<li>查看本地分支：git branch</li>
-<li>查看所有分支：git branch -a</li>
-<li>查看本地分支和远程分支的关联情况：git branch -vv</li>
-<li>合并分支：git merge &lt;分支名&gt; 或者 git rebase &lt;分支名&gt;</li>
-</ul>
-</li>
-<li>获取最新改动：git pull 或者 git fetch 或者 git pull &lt;远程库名&gt; &lt;远程分支名&gt;:&lt;本地分支名&gt;</li>
-<li><p>删除修改：</p>
-<ul>
-<li>未add到暂存区：git checkout – <filename style="box-sizing: border-box;">或者 git checkout .</filename></li>
-<li>已add到暂存区：git reset HEAD <filename style="box-sizing: border-box;">然后再执行未add的暂存区的步骤</filename></li>
-<li><p>已commit到本地库：git reset –hard <commit_id style="box-sizing: border-box;">或者 git reset –hard HEAD^(有几个^就回退几个版本)</commit_id></p>
-<blockquote>
-<p>git revert 是生成一个新的提交来撤销某次提交，此次提交之前的commit都会被保留<br>git reset 是回到某次提交，提交及之前的commit都会被保留，但是此次之后的修改都会被退回到暂存区 </p>
-</blockquote>
-</li>
-</ul>
-</li>
-<li>stash<ul>
-<li>暂存本地修改：git stash</li>
-<li>查看暂存：git stash list</li>
-<li>恢复暂存：git stash apply <name style="box-sizing: border-box;">或者 git stash pop（恢复最近一次暂存）</name></li>
-<li>清除暂存：git stash clear</li>
-</ul>
-</li>
-<li>tag<ul>
-<li>打标签：git tag -a <tagname style="box-sizing: border-box;">-m “注释”</tagname></li>
-<li>查看标签：git tag 或者 git tag -l</li>
-<li>删除标签：git tag -d<tagname style="box-sizing: border-box;"></tagname></li>
-<li>提交标签到远程库：git push origin <tagname style="box-sizing: border-box;">或者 git push origin –tags</tagname></li>
-<li>删除远程标签：git push origin :&lt;远程tagName&gt;</li>
-<li>切换到某个标签代码：git checkout -b &lt;分支名&gt;<tagname style="box-sizing: border-box;"></tagname></li>
-</ul>
-</li>
-</ol>
-<h2 id="项目初始化"><a href="#项目初始化" class="headerlink" title="项目初始化"></a><a href="http://www.ronglexie.top/2018/c89fc486.html#%E9%A1%B9%E7%9B%AE%E5%88%9D%E5%A7%8B%E5%8C%96" title="项目初始化" target="_blank" rel="external"></a>项目初始化</h2><ul>
-<li>创建项目</li>
-</ul>
-<ol>
-<li>mkdir test – 创建本地文件夹</li>
-<li>cd test – 进入到本地文件夹</li>
-<li>git init – 初始化本地git库</li>
-<li>touch README.md – 添加本地文件</li>
-<li>git add README.md – add到缓存区（git add -A add全部修改）</li>
-<li>git commit -m “first commit” – 提交到本地git库</li>
-<li>git remote add origin <a href="http://192.168.0.110/test.git" target="_blank" rel="external">http://192.168.0.110/test.git</a> – 关联远程git库地址</li>
-<li>git push -u origin master – 提交到远程分支</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">graph TB</div><div class="line">A((Start)) --&gt; B[git init]</div><div class="line">B --&gt; C[git add -A]</div><div class="line">C --&gt; D[git commit -m tag]</div><div class="line">D --&gt; E[git remote add origin https://.......git]</div><div class="line">E --&gt; F[git push -u origin master]</div><div class="line">F --&gt; G[End]</div></pre></td></tr></table></figure>
-<ul>
-<li>添加已有项目</li>
-</ul>
-<ol>
-<li>cd existing_git_repo</li>
-<li>git remote add origin <a href="http://192.168.0.110/test.git" target="_blank" rel="external">http://192.168.0.110/test.git</a></li>
-<li>git push -u origin master<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">graph TB</div><div class="line">A((Start)) --&gt; B[git remote add origin https://.......git]</div><div class="line">B --&gt; C[git push -u origin master]</div><div class="line">C --&gt; D[End]</div></pre></td></tr></table></figure>
-</li>
-</ol>
-<ul>
-<li>拉取已有项目<br>git clone -b master <a href="http://192.168.0.110/test.git" target="_blank" rel="external">http://192.168.0.110/test.git</a></li>
-</ul>
-<h2 id="单分支开发"><a href="#单分支开发" class="headerlink" title="单分支开发"></a><a href="http://www.ronglexie.top/2018/c89fc486.html#%E5%8D%95%E5%88%86%E6%94%AF%E5%BC%80%E5%8F%91" title="单分支开发" target="_blank" rel="external"></a>单分支开发</h2><h3 id="1-git-fetch-git-rebase"><a href="#1-git-fetch-git-rebase" class="headerlink" title="1.git fetch + git rebase"></a><a href="http://www.ronglexie.top/2018/c89fc486.html#1-git-fetch-git-rebase" title="1.git fetch + git rebase" target="_blank" rel="external"></a>1.git fetch + git rebase</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">graph TB</div><div class="line">A((Start)) --&gt; B[git add -A]</div><div class="line">B --&gt; C[git commit -m tag]</div><div class="line">C --&gt; D[git fetch]</div><div class="line">D --&gt; E&#123;git rebase origin/master&#125;</div><div class="line">E --&gt; |true| F[git push origin master:master]</div><div class="line">E --&gt; |false| G[Solve conflict]</div><div class="line">G --&gt; H[git add -A]</div><div class="line">H --&gt; I[git rebase --contione]</div><div class="line">I --&gt; F</div><div class="line">F --&gt; J((End))</div></pre></td></tr></table></figure>
-<blockquote>
-<p>分支模型：master –&gt; origin/master</p>
-</blockquote>
-<h5 id="2-git-pull-git-rebase"><a href="#2-git-pull-git-rebase" class="headerlink" title="2.git pull + git rebase"></a><a href="http://www.ronglexie.top/2018/c89fc486.html#2-git-pull-git-rebase" title="2.git pull + git rebase" target="_blank" rel="external"></a>2.git pull + git rebase</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">graph TB</div><div class="line">A((Start)) --&gt; B[git add -A]</div><div class="line">B --&gt; C[git commit -m tag]</div><div class="line">C --&gt; D[git checkout master]</div><div class="line">D --&gt; E[git pull]</div><div class="line">E --&gt; F[git checkout dev]</div><div class="line">F --&gt; G&#123;git rebase master&#125;</div><div class="line">G --&gt; |true| H(git push origin dev:master)</div><div class="line">G --&gt; |false| I[Solve conflict]</div><div class="line">I --&gt; J[git add -A]</div><div class="line">J --&gt; K[git rebase --continue]</div><div class="line">K --&gt; H</div><div class="line">H --&gt; L((End))</div></pre></td></tr></table></figure>
-<blockquote>
-<p>分支模型：<br>master(本地) –&gt; origin/master(远程)<br>dev(本地开发)</p>
-</blockquote>
-<h2 id="单人单分支开发"><a href="#单人单分支开发" class="headerlink" title="单人单分支开发"></a><a href="http://www.ronglexie.top/2018/c89fc486.html#%E5%8D%95%E4%BA%BA%E5%8D%95%E5%88%86%E6%94%AF%E5%BC%80%E5%8F%91" title="单人单分支开发" target="_blank" rel="external"></a>单人单分支开发</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">graph TB</div><div class="line">A((Start)) --&gt; B(git pull)</div><div class="line">B --&gt; C[git add -A]</div><div class="line">C --&gt; D[git commit -m tag]</div><div class="line">D --&gt; E[git push origin master:master]</div><div class="line">E --&gt; F(git pull)</div><div class="line">F --&gt; G((End))</div></pre></td></tr></table></figure>
-<blockquote>
-<p>注：git pull可以在修改前也可以在修改后，但至少保证有一次这样的操作。（单人多机器开发）</p>
-</blockquote>
-<h2 id="多分支开发"><a href="#多分支开发" class="headerlink" title="多分支开发"></a><a href="http://www.ronglexie.top/2018/c89fc486.html#%E5%A4%9A%E5%88%86%E6%94%AF%E5%BC%80%E5%8F%91" title="多分支开发" target="_blank" rel="external"></a>多分支开发</h2><ul>
-<li><p>模型</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">sequenceDiagram</div><div class="line">    master--&gt;&gt;dev1:checkout</div><div class="line">    dev1-&gt;&gt;master:merge</div><div class="line">    master--&gt;&gt;dev2:checkout</div><div class="line">    dev2-&gt;&gt;master:merge</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<blockquote>
-<ol>
-<li>上面部分为远程分支，下面部分为本地分支</li>
-<li>master为基准分支，dev1、dev2均为从master上checkout出来的功能分支</li>
-<li>所有的git提交均为纵向的，不允许交叉提交</li>
-<li>分支合并均在本地merge后再提交到远程分支，不允许直接合并远程分支</li>
-<li><strong>纵向“变基”使用git rebase，横向合并分支使用git merge，切记！切记！</strong></li>
-</ol>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">graph TB</div><div class="line">A((Start)) --&gt; B[git fetch]</div><div class="line">B --&gt; C[git rebase origin/master]</div><div class="line">C --&gt; D[git merge dev1]</div><div class="line">D --&gt; |true| E[git push origin master:master]</div><div class="line">D --&gt; |false| F[Solve Conflict]</div><div class="line">F --&gt; G[git add -A]</div><div class="line">G --&gt; H[git merge --continue]</div><div class="line">H --&gt; E</div><div class="line">E --&gt; I((End))</div></pre></td></tr></table></figure>
-<ul>
-<li>新建功能分支并推送到远程Git库保存</li>
-</ul>
-<ol>
-<li>新建分支并建立关联</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">graph TB</div><div class="line">A((Start)) --&gt; B[git checkout -b temp_dev]</div><div class="line">B --&gt; C[git add -A]</div><div class="line">C --&gt; D[git commit -m tag]</div><div class="line">D --&gt; E[git push --set-upstream origin temp]</div><div class="line">E --&gt; F[git pull]</div><div class="line">F --&gt; G((End))</div></pre></td></tr></table></figure>
-<blockquote>
-<ol>
-<li>temp_dev：本地新建开发分支</li>
-<li>temp：远程新建功能分支</li>
-<li>提交修改后或者修改前一定要记得<strong>git pull</strong>，养成这个良好的习惯能有效的减少冲突</li>
-</ol>
-</blockquote>
-<ol>
-<li>仅新建分支不建立关联</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">graph TB</div><div class="line">A((Start)) --&gt; B[git checkout -b temp_dev]</div><div class="line">B --&gt; C[git add -A]</div><div class="line">C --&gt; D[git commit -m tag]</div><div class="line">D --&gt; E[git push origin temp_dev:temp]</div><div class="line">E --&gt; G((End))</div></pre></td></tr></table></figure>
-<ul>
-<li>拉取本地不存在的远程分支</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">graph TB</div><div class="line">A((Start)) --&gt; B&#123;git checkout -b pull_dev origin/pull&#125;</div><div class="line">B --&gt; |true| C((End))</div><div class="line">B --&gt; |false| D[git fetch]</div><div class="line">D --&gt; B</div></pre></td></tr></table></figure>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/06/12/Git工作流程/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
