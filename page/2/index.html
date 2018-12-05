@@ -594,9 +594,6 @@
       
         
           <h2 id="属性和字段"><a href="#属性和字段" class="headerlink" title="属性和字段"></a>属性和字段</h2><h3 id="属性声明"><a href="#属性声明" class="headerlink" title="属性声明"></a>属性声明</h3><p>在 Kotlin 中类可以有属性，我们可以使用 var 关键字声明可变属性，或者用 val 关键字声明只读属性。</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Address</span> </span>&#123; 	</div><div class="line">	<span class="keyword">var</span> name: String = ...</div><div class="line">  <span class="keyword">var</span> street: String = ...</div><div class="line">	<span class="keyword">var</span> city: String = ...</div><div class="line">  <span class="keyword">var</span> state: String? = ...</div><div class="line">	<span class="keyword">var</span> zip: String = ...</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>我们可以像使用 java 中的字段那样,通过名字直接使用一个属性：</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">fun</span> <span class="title">copyAddress</span><span class="params">(address: <span class="type">Address</span>)</span></span> : Address &#123;</div><div class="line">	<span class="keyword">val</span> result = Address() <span class="comment">// 在 kotlin 中没有 new 关键字</span></div><div class="line">	result.name = address.name <span class="comment">// accessors are called</span></div><div class="line">	result.street = address.street</div><div class="line">	<span class="comment">// ...</span></div><div class="line">	<span class="keyword">return</span> result</div><div class="line">&#125;</div></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2017/08/08/kotlin官方文档-3.2属性和字段/#more" rel="contents">
@@ -1296,7 +1293,7 @@
   <span class="author" itemprop="copyrightHolder">Andrman</span>
 </div>
 <!--统计start-->
-      <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+      <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
       </script>
       <span id="busuanzi_container_site_pv">
     本站总访问量<span id="busuanzi_value_site_pv"></span>次

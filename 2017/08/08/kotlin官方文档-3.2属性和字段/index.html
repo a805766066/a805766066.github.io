@@ -87,16 +87,16 @@
 
 
 
-<meta name="description" content="属性和字段属性声明在 Kotlin 中类可以有属性，我们可以使用 var 关键字声明可变属性，或者用 val 关键字声明只读属性。 1234567class Address &amp;#123; 		var name: String = ...  var street: String = ...	var city: String = ...  var state: String? = ...	var zi">
+<meta name="description" content="属性和字段属性声明在 Kotlin 中类可以有属性，我们可以使用 var 关键字声明可变属性，或者用 val 关键字声明只读属性。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="kotlin官方文档-3.2属性和字段">
 <meta property="og:url" content="http://andrman.cn/2017/08/08/kotlin官方文档-3.2属性和字段/index.html">
 <meta property="og:site_name" content="Andrman&#39;s Blog">
-<meta property="og:description" content="属性和字段属性声明在 Kotlin 中类可以有属性，我们可以使用 var 关键字声明可变属性，或者用 val 关键字声明只读属性。 1234567class Address &amp;#123; 		var name: String = ...  var street: String = ...	var city: String = ...  var state: String? = ...	var zi">
-<meta property="og:updated_time" content="2018-03-31T07:41:55.000Z">
+<meta property="og:description" content="属性和字段属性声明在 Kotlin 中类可以有属性，我们可以使用 var 关键字声明可变属性，或者用 val 关键字声明只读属性。">
+<meta property="og:updated_time" content="2018-12-05T13:53:14.070Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="kotlin官方文档-3.2属性和字段">
-<meta name="twitter:description" content="属性和字段属性声明在 Kotlin 中类可以有属性，我们可以使用 var 关键字声明可变属性，或者用 val 关键字声明只读属性。 1234567class Address &amp;#123; 		var name: String = ...  var street: String = ...	var city: String = ...  var state: String? = ...	var zi">
+<meta name="twitter:description" content="属性和字段属性声明在 Kotlin 中类可以有属性，我们可以使用 var 关键字声明可变属性，或者用 val 关键字声明只读属性。">
 
 
 
@@ -416,10 +416,10 @@
 
       
         <h2 id="属性和字段"><a href="#属性和字段" class="headerlink" title="属性和字段"></a>属性和字段</h2><h3 id="属性声明"><a href="#属性声明" class="headerlink" title="属性声明"></a>属性声明</h3><p>在 Kotlin 中类可以有属性，我们可以使用 var 关键字声明可变属性，或者用 val 关键字声明只读属性。</p>
+<a id="more"></a>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Address</span> </span>&#123; 	</div><div class="line">	<span class="keyword">var</span> name: String = ...</div><div class="line">  <span class="keyword">var</span> street: String = ...</div><div class="line">	<span class="keyword">var</span> city: String = ...</div><div class="line">  <span class="keyword">var</span> state: String? = ...</div><div class="line">	<span class="keyword">var</span> zip: String = ...</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>我们可以像使用 java 中的字段那样,通过名字直接使用一个属性：</p>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">fun</span> <span class="title">copyAddress</span><span class="params">(address: <span class="type">Address</span>)</span></span> : Address &#123;</div><div class="line">	<span class="keyword">val</span> result = Address() <span class="comment">// 在 kotlin 中没有 new 关键字</span></div><div class="line">	result.name = address.name <span class="comment">// accessors are called</span></div><div class="line">	result.street = address.street</div><div class="line">	<span class="comment">// ...</span></div><div class="line">	<span class="keyword">return</span> result</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<a id="more"></a>
 <h3 id="Getters-和-Setters"><a href="#Getters-和-Setters" class="headerlink" title="Getters 和 Setters"></a>Getters 和 Setters</h3><p>声明一个属性的完整语法如下：</p>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> &lt;propertyName&gt;: &lt;PropertyType&gt; [ = &lt;property_initializer&gt; ]</div><div class="line">	&lt;getter&gt;</div><div class="line">	&lt;setter&gt;</div></pre></td></tr></table></figure>
 <p>语法中的初始化语句，getter 和 setter 都是可选的。如果属性类型可以从初始化语句或者类的成员函数中推断出来,那么他的类型也是忽略的。</p>
@@ -698,7 +698,7 @@
   <span class="author" itemprop="copyrightHolder">Andrman</span>
 </div>
 <!--统计start-->
-      <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+      <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
       </script>
       <span id="busuanzi_container_site_pv">
     本站总访问量<span id="busuanzi_value_site_pv"></span>次

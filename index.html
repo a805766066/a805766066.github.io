@@ -1093,7 +1093,7 @@
 
       
         
-          <h3 id="Environment"><a href="#Environment" class="headerlink" title="Environment"></a>Environment</h3><p>默认的环境 ID（比如:default=”development”<br>每个 environment 元素定义的环境 ID（比如:id=”development”<br>事务管理器的配置（比如:type=”JDBC”<br>数据源的配置（比如:type=”POOLED”<br>每个数据库对应一个 SqlSessionFactory 实例,每个 SqlSessionFactory 实例只能选择Environment<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">常用配置</div><div class="line">&lt;!-- 设置一个默认的连接环境信息 --&gt;</div><div class="line">&lt;environments default=&quot;development&quot;&gt;</div><div class="line">    &lt;environment id=&quot;development&quot;&gt;</div><div class="line">        &lt;!-- mybatis使用jdbc事务管理方式 --&gt;</div><div class="line">        &lt;transactionManager type=&quot;JDBC&quot;/&gt;</div><div class="line">        &lt;!-- mybatis使用连接池方式来获取连接 --&gt;</div><div class="line">        &lt;dataSource type=&quot;POOLED&quot;&gt;</div><div class="line">            &lt;!-- 配置与数据库交互的4个必要属性 --&gt;</div><div class="line">            &lt;property name=&quot;driver&quot; value=&quot;$&#123;jdbc.driver&#125;&quot;/&gt;</div><div class="line">            &lt;property name=&quot;url&quot; value=&quot;$&#123;jdbc.url&#125;&quot;/&gt;</div><div class="line">            &lt;property name=&quot;username&quot; value=&quot;$&#123;jdbc.username&#125;&quot;/&gt;</div><div class="line">            &lt;property name=&quot;password&quot; value=&quot;$&#123;jdbc.password&#125;&quot;/&gt;</div><div class="line">        &lt;/dataSource&gt;</div><div class="line">    &lt;/environment&gt;</div><div class="line">&lt;/environments&gt;</div><div class="line"></div><div class="line">public final class Environment &#123;</div><div class="line">  private final String id;</div><div class="line">  private final TransactionFactory transactionFactory;</div><div class="line">  private final DataSource dataSource;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+          <h3 id="Environment"><a href="#Environment" class="headerlink" title="Environment"></a>Environment</h3><p>默认的环境 ID（比如:default=”development”<br>每个 environment 元素定义的环境 ID（比如:id=”development”<br>事务管理器的配置（比如:type=”JDBC”<br>数据源的配置（比如:type=”POOLED”<br>每个数据库对应一个 SqlSessionFactory 实例,每个 SqlSessionFactory 实例只能选择Environment</p>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2017/08/20/Mybatis学习笔记(二)XML配置/#more" rel="contents">
@@ -1273,7 +1273,7 @@
   <span class="author" itemprop="copyrightHolder">Andrman</span>
 </div>
 <!--统计start-->
-      <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+      <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
       </script>
       <span id="busuanzi_container_site_pv">
     本站总访问量<span id="busuanzi_value_site_pv"></span>次
