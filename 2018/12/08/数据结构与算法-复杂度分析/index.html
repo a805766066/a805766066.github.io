@@ -95,7 +95,7 @@
 <meta property="og:description" content="什么是复杂度分析？1.数据结构和算法解决的就是“如何让计算机更快时间，更省空间的解决问题”。2.需要从执行时间和占有空间两个维度来评估数据结构和算法的性能。3.分别用时间复杂度和空间复杂度两个概念来描述性能问题，二者统称为复杂度。">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1672313-21616a7f9b6befb8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1672313-1e7b4402c6d8cf09.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2018-12-08T08:29:16.218Z">
+<meta property="og:updated_time" content="2018-12-08T08:46:19.150Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="数据结构与算法-复杂度分析">
 <meta name="twitter:description" content="什么是复杂度分析？1.数据结构和算法解决的就是“如何让计算机更快时间，更省空间的解决问题”。2.需要从执行时间和占有空间两个维度来评估数据结构和算法的性能。3.分别用时间复杂度和空间复杂度两个概念来描述性能问题，二者统称为复杂度。">
@@ -427,6 +427,9 @@
 <h3 id="常用复杂度分析法则"><a href="#常用复杂度分析法则" class="headerlink" title="常用复杂度分析法则"></a>常用复杂度分析法则</h3><p><img src="https://upload-images.jianshu.io/upload_images/1672313-21616a7f9b6befb8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
 <p>1）多项式<br>随着数据规模的增长，算法的执行时间和空间占用，按照多项式的比例增长。<br>包括，O(1)常数阶, O(logn)对数阶, O(n)线性阶, O(nlogn)线性对数阶, O(n^2)平方阶, O(n^3)立方阶<br>2）非多项式<br>随着数据规模的增长，算法的执行时间和空间占用暴增。<br>包括，O(2^n)指数阶, O(n!)阶乘阶</p>
 <p><img src="https://upload-images.jianshu.io/upload_images/1672313-1e7b4402c6d8cf09.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<h3 id="复杂度分析的4个概念"><a href="#复杂度分析的4个概念" class="headerlink" title="复杂度分析的4个概念"></a>复杂度分析的4个概念</h3><p>1.最坏情况时间复杂度：代码在最理想情况下执行的时间复杂度。<br>2.最好情况时间复杂度：代码在最坏情况下执行的时间复杂度。<br>3.平均时间复杂度：用代码在所有情况下执行的次数的加权平均值表示。<br>4.均摊时间复杂度：在代码执行的所有复杂度情况中绝大部分是低级别的复杂度，个别情况是高级别复杂度且发生具有时序关系时，可以将个别高级别复杂度均摊到低级别复杂度上。基本上均摊结果就等于低级别复杂度。</p>
+<h3 id="为什么要引入这4个概念？"><a href="#为什么要引入这4个概念？" class="headerlink" title="为什么要引入这4个概念？"></a>为什么要引入这4个概念？</h3><p>1.同一段代码在不同情况下时间复杂度会出现量级差异，为了更全面，更准确的描述代码的时间复杂度，所以引入这4个概念。<br>2.代码复杂度在不同情况下出现量级差别时才需要区别这四种复杂度。大多数情况下，是不需要区别分析它们的。</p>
+<h3 id="如何分析平均、均摊时间复杂度？"><a href="#如何分析平均、均摊时间复杂度？" class="headerlink" title="如何分析平均、均摊时间复杂度？"></a>如何分析平均、均摊时间复杂度？</h3><p>1.平均时间复杂度<br>代码在不同情况下复杂度出现量级差别，则用代码所有可能情况下执行次数的加权平均值表示。<br>2.均摊时间复杂度<br>两个条件满足时使用：<br>1）代码在绝大多数情况下是低级别复杂度，只有极少数情况是高级别复杂度；<br>2）低级别和高级别复杂度出现具有时序规律。均摊结果一般都等于低级别复杂度。</p>
 
       
     </div>
@@ -628,7 +631,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是复杂度分析？"><span class="nav-number">1.</span> <span class="nav-text">什么是复杂度分析？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么需要复杂度分析？"><span class="nav-number">2.</span> <span class="nav-text">为什么需要复杂度分析？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#大O表示法"><span class="nav-number">3.</span> <span class="nav-text">大O表示法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-来源"><span class="nav-number">3.1.</span> <span class="nav-text">1.来源</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-特点"><span class="nav-number">3.2.</span> <span class="nav-text">2.特点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常用复杂度分析法则"><span class="nav-number">4.</span> <span class="nav-text">常用复杂度分析法则</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是复杂度分析？"><span class="nav-number">1.</span> <span class="nav-text">什么是复杂度分析？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么需要复杂度分析？"><span class="nav-number">2.</span> <span class="nav-text">为什么需要复杂度分析？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#大O表示法"><span class="nav-number">3.</span> <span class="nav-text">大O表示法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-来源"><span class="nav-number">3.1.</span> <span class="nav-text">1.来源</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-特点"><span class="nav-number">3.2.</span> <span class="nav-text">2.特点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常用复杂度分析法则"><span class="nav-number">4.</span> <span class="nav-text">常用复杂度分析法则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#复杂度分析的4个概念"><span class="nav-number">5.</span> <span class="nav-text">复杂度分析的4个概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么要引入这4个概念？"><span class="nav-number">6.</span> <span class="nav-text">为什么要引入这4个概念？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何分析平均、均摊时间复杂度？"><span class="nav-number">7.</span> <span class="nav-text">如何分析平均、均摊时间复杂度？</span></a></li></ol></div>
             
 
           </div>
