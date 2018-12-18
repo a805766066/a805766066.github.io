@@ -87,17 +87,17 @@
 
 
 
-<meta name="description" content="MySQL架构">
+<meta name="description" content="MySQL架构大体来说，MySQL可以分为Server层和存储引擎层两部分。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="MySQL-MySQL逻辑架构">
 <meta property="og:url" content="http://andrman.cn/2018/12/18/MySQL01-MySQL逻辑架构/index.html">
 <meta property="og:site_name" content="Andrman&#39;s Blog">
-<meta property="og:description" content="MySQL架构">
+<meta property="og:description" content="MySQL架构大体来说，MySQL可以分为Server层和存储引擎层两部分。">
 <meta property="og:image" content="http://andrman.cn/img/mysql01.png">
-<meta property="og:updated_time" content="2018-12-18T14:20:17.393Z">
+<meta property="og:updated_time" content="2018-12-18T14:54:39.817Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MySQL-MySQL逻辑架构">
-<meta name="twitter:description" content="MySQL架构">
+<meta name="twitter:description" content="MySQL架构大体来说，MySQL可以分为Server层和存储引擎层两部分。">
 <meta name="twitter:image" content="http://andrman.cn/img/mysql01.png">
 
 
@@ -417,8 +417,17 @@
       
 
       
-        <h3 id="MySQL架构"><a href="#MySQL架构" class="headerlink" title="MySQL架构"></a>MySQL架构</h3><p><img src="/img/mysql01.png" alt="MySQL架构"></p>
-
+        <h3 id="MySQL架构"><a href="#MySQL架构" class="headerlink" title="MySQL架构"></a>MySQL架构</h3><p>大体来说，MySQL可以分为Server层和存储引擎层两部分。</p>
+<a id="more"></a>
+<p><img src="/img/mysql01.png" alt="MySQL的逻辑架构图"></p>
+<p>Server层包括连接器，查询缓存，分析器，优化器，执行器等。</p>
+<p>存储引擎主要负责数据的存储和提取，其架构模式是插件式的，支持InnoDB，MYISAM，Memory等。</p>
+<h3 id="连接器"><a href="#连接器" class="headerlink" title="连接器"></a>连接器</h3><p>连接器负责数据库和客户端的链接建立，获取权限，维持和管理连接。</p>
+<h3 id="查询缓存"><a href="#查询缓存" class="headerlink" title="查询缓存"></a>查询缓存</h3><p>连接建立完成后，会执行sql语句，但是这时候，并不会直接在数据库查询，而是会先查询缓存。<br>mysql会缓存上一次执行的结果，已执行语句为key，结果为value，已key-value的形式缓存在内存中。</p>
+<h4 id="大多数情况下，不建议使用缓存。"><a href="#大多数情况下，不建议使用缓存。" class="headerlink" title="大多数情况下，不建议使用缓存。"></a>大多数情况下，不建议使用缓存。</h4><p>只要有对这个表的更新，就会清空之前所有的缓存，对于更新压力大的数据库来说，缓存压力很大。</p>
+<h3 id="分析器"><a href="#分析器" class="headerlink" title="分析器"></a>分析器</h3><h4 id="做什么。"><a href="#做什么。" class="headerlink" title="做什么。"></a>做什么。</h4><p>在查询之前，分析器会分析sql语句，判断输入的sql语句是否符合语法规则，如果不符合就会报错。</p>
+<h3 id="优化器"><a href="#优化器" class="headerlink" title="优化器"></a>优化器</h3><h4 id="怎么做。"><a href="#怎么做。" class="headerlink" title="怎么做。"></a>怎么做。</h4><p>经过分析，MYSQL就知道你要干什么了。在开始执行之前，还会经过优化器的优化。<br>比如有多个索引，使用哪个，或者一个语句有多表关联的时候，决定各表的连接顺序。</p>
+<h3 id="执行器"><a href="#执行器" class="headerlink" title="执行器"></a>执行器</h3><h4 id="开始执行"><a href="#开始执行" class="headerlink" title="开始执行"></a>开始执行</h4>
       
     </div>
 
@@ -619,7 +628,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL架构"><span class="nav-number">1.</span> <span class="nav-text">MySQL架构</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL架构"><span class="nav-number">1.</span> <span class="nav-text">MySQL架构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#连接器"><span class="nav-number">2.</span> <span class="nav-text">连接器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查询缓存"><span class="nav-number">3.</span> <span class="nav-text">查询缓存</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#大多数情况下，不建议使用缓存。"><span class="nav-number">3.1.</span> <span class="nav-text">大多数情况下，不建议使用缓存。</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分析器"><span class="nav-number">4.</span> <span class="nav-text">分析器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#做什么。"><span class="nav-number">4.1.</span> <span class="nav-text">做什么。</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#优化器"><span class="nav-number">5.</span> <span class="nav-text">优化器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#怎么做。"><span class="nav-number">5.1.</span> <span class="nav-text">怎么做。</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#执行器"><span class="nav-number">6.</span> <span class="nav-text">执行器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#开始执行"><span class="nav-number">6.1.</span> <span class="nav-text">开始执行</span></a></li></ol></li></ol></div>
             
 
           </div>
